@@ -1,2 +1,5 @@
 # C-library
-My own C language library.
+自作のC言語用ライブラリです。<br>
+自分が適当に実装したいと思った機能を実装しています。
+
+\-AQ(MK)
