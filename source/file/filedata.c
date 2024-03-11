@@ -1,6 +1,6 @@
 #include <stdio.h>
-#include <sdlib.h>
-#include "file/filedata.h"
+#include <stdlib.h>
+#include "filedata.h"
 
 FILEDATA* filedataOpen(const char* name, const char* mode)
 {
