@@ -1,0 +1,40 @@
+* binary
+* data
+  * endian
+  * format
+  * list
+  * stack
+  * dict
+  * set
+  * queue
+  * vector
+  * settheory
+* draw
+  * win
+    * undecided
+  * free glut
+    * undecided
+* error
+* file
+  * music
+    * wav
+  * image
+    * bmp
+  * video
+  * stdfile
+    * riff
+* operator
+  * math
+    * base
+    * complex
+    * matrix
+  * funcs
+    * func
+* physics
+* plot
+* protocol
+* statistics
+* string
+* UI
+  * CUI
+  * GUI
