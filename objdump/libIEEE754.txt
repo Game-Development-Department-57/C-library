@@ -1,0 +1,677 @@
+In archive libIEEE754.a:
+
+IEEE754.o:     file format pe-x86-64
+
+
+Disassembly of section .text:
+
+0000000000000000 <IEEE754Binary32Create>:
+   0:	55                   	push   rbp
+   1:	48 89 e5             	mov    rbp,rsp
+   4:	48 83 ec 10          	sub    rsp,0x10
+   8:	48 89 4d 10          	mov    QWORD PTR [rbp+0x10],rcx
+   c:	c7 45 f4 00 00 00 00 	mov    DWORD PTR [rbp-0xc],0x0
+  13:	c7 45 f8 80 00 00 00 	mov    DWORD PTR [rbp-0x8],0x80
+  1a:	c7 45 fc 00 00 00 00 	mov    DWORD PTR [rbp-0x4],0x0
+  21:	48 8b 45 10          	mov    rax,QWORD PTR [rbp+0x10]
+  25:	48 8b 55 f4          	mov    rdx,QWORD PTR [rbp-0xc]
+  29:	48 89 10             	mov    QWORD PTR [rax],rdx
+  2c:	8b 55 fc             	mov    edx,DWORD PTR [rbp-0x4]
+  2f:	89 50 08             	mov    DWORD PTR [rax+0x8],edx
+  32:	48 8b 45 10          	mov    rax,QWORD PTR [rbp+0x10]
+  36:	48 83 c4 10          	add    rsp,0x10
+  3a:	5d                   	pop    rbp
+  3b:	c3                   	ret
+
+000000000000003c <IEEE754Binary32Set>:
+  3c:	55                   	push   rbp
+  3d:	53                   	push   rbx
+  3e:	48 83 ec 18          	sub    rsp,0x18
+  42:	48 8d 6c 24 10       	lea    rbp,[rsp+0x10]
+  47:	48 89 4d 20          	mov    QWORD PTR [rbp+0x20],rcx
+  4b:	48 89 d3             	mov    rbx,rdx
+  4e:	f3 0f 11 55 30       	movss  DWORD PTR [rbp+0x30],xmm2
+  53:	f3 0f 10 45 30       	movss  xmm0,DWORD PTR [rbp+0x30]
+  58:	f3 0f 11 45 fc       	movss  DWORD PTR [rbp-0x4],xmm0
+  5d:	8b 45 fc             	mov    eax,DWORD PTR [rbp-0x4]
+  60:	c1 e8 1f             	shr    eax,0x1f
+  63:	89 03                	mov    DWORD PTR [rbx],eax
+  65:	8b 45 fc             	mov    eax,DWORD PTR [rbp-0x4]
+  68:	c1 e8 17             	shr    eax,0x17
+  6b:	0f b6 c0             	movzx  eax,al
+  6e:	89 43 04             	mov    DWORD PTR [rbx+0x4],eax
+  71:	8b 45 fc             	mov    eax,DWORD PTR [rbp-0x4]
+  74:	25 ff ff 7f 00       	and    eax,0x7fffff
+  79:	89 43 08             	mov    DWORD PTR [rbx+0x8],eax
+  7c:	48 8b 45 20          	mov    rax,QWORD PTR [rbp+0x20]
+  80:	48 8b 13             	mov    rdx,QWORD PTR [rbx]
+  83:	48 89 10             	mov    QWORD PTR [rax],rdx
+  86:	8b 53 08             	mov    edx,DWORD PTR [rbx+0x8]
+  89:	89 50 08             	mov    DWORD PTR [rax+0x8],edx
+  8c:	48 8b 45 20          	mov    rax,QWORD PTR [rbp+0x20]
+  90:	48 83 c4 18          	add    rsp,0x18
+  94:	5b                   	pop    rbx
+  95:	5d                   	pop    rbp
+  96:	c3                   	ret
+
+0000000000000097 <IEEE754Binary32Get>:
+  97:	55                   	push   rbp
+  98:	53                   	push   rbx
+  99:	48 83 ec 18          	sub    rsp,0x18
+  9d:	48 8d 6c 24 10       	lea    rbp,[rsp+0x10]
+  a2:	48 89 cb             	mov    rbx,rcx
+  a5:	c7 45 fc 00 00 00 00 	mov    DWORD PTR [rbp-0x4],0x0
+  ac:	8b 55 fc             	mov    edx,DWORD PTR [rbp-0x4]
+  af:	8b 03                	mov    eax,DWORD PTR [rbx]
+  b1:	c1 e0 1f             	shl    eax,0x1f
+  b4:	01 d0                	add    eax,edx
+  b6:	89 45 fc             	mov    DWORD PTR [rbp-0x4],eax
+  b9:	8b 55 fc             	mov    edx,DWORD PTR [rbp-0x4]
+  bc:	8b 43 04             	mov    eax,DWORD PTR [rbx+0x4]
+  bf:	c1 e0 17             	shl    eax,0x17
+  c2:	01 d0                	add    eax,edx
+  c4:	89 45 fc             	mov    DWORD PTR [rbp-0x4],eax
+  c7:	8b 55 fc             	mov    edx,DWORD PTR [rbp-0x4]
+  ca:	8b 43 08             	mov    eax,DWORD PTR [rbx+0x8]
+  cd:	01 d0                	add    eax,edx
+  cf:	89 45 fc             	mov    DWORD PTR [rbp-0x4],eax
+  d2:	f3 0f 10 45 fc       	movss  xmm0,DWORD PTR [rbp-0x4]
+  d7:	48 83 c4 18          	add    rsp,0x18
+  db:	5b                   	pop    rbx
+  dc:	5d                   	pop    rbp
+  dd:	c3                   	ret
+
+00000000000000de <IEEE754Binary32FtoI>:
+  de:	55                   	push   rbp
+  df:	48 89 e5             	mov    rbp,rsp
+  e2:	48 83 ec 10          	sub    rsp,0x10
+  e6:	48 89 4d 10          	mov    QWORD PTR [rbp+0x10],rcx
+  ea:	f3 0f 11 4d 18       	movss  DWORD PTR [rbp+0x18],xmm1
+  ef:	f3 0f 10 45 18       	movss  xmm0,DWORD PTR [rbp+0x18]
+  f4:	f3 0f 11 45 f0       	movss  DWORD PTR [rbp-0x10],xmm0
+  f9:	8b 45 f0             	mov    eax,DWORD PTR [rbp-0x10]
+  fc:	c1 e8 1f             	shr    eax,0x1f
+  ff:	89 45 f4             	mov    DWORD PTR [rbp-0xc],eax
+ 102:	8b 45 f0             	mov    eax,DWORD PTR [rbp-0x10]
+ 105:	c1 e8 17             	shr    eax,0x17
+ 108:	0f b6 c0             	movzx  eax,al
+ 10b:	89 45 f8             	mov    DWORD PTR [rbp-0x8],eax
+ 10e:	8b 45 f0             	mov    eax,DWORD PTR [rbp-0x10]
+ 111:	25 ff ff 7f 00       	and    eax,0x7fffff
+ 116:	89 45 fc             	mov    DWORD PTR [rbp-0x4],eax
+ 119:	48 8b 45 10          	mov    rax,QWORD PTR [rbp+0x10]
+ 11d:	48 8b 55 f4          	mov    rdx,QWORD PTR [rbp-0xc]
+ 121:	48 89 10             	mov    QWORD PTR [rax],rdx
+ 124:	8b 55 fc             	mov    edx,DWORD PTR [rbp-0x4]
+ 127:	89 50 08             	mov    DWORD PTR [rax+0x8],edx
+ 12a:	48 8b 45 10          	mov    rax,QWORD PTR [rbp+0x10]
+ 12e:	48 83 c4 10          	add    rsp,0x10
+ 132:	5d                   	pop    rbp
+ 133:	c3                   	ret
+
+0000000000000134 <IEEE754Binary32ItoF>:
+ 134:	55                   	push   rbp
+ 135:	53                   	push   rbx
+ 136:	48 83 ec 18          	sub    rsp,0x18
+ 13a:	48 8d 6c 24 10       	lea    rbp,[rsp+0x10]
+ 13f:	48 89 cb             	mov    rbx,rcx
+ 142:	c7 45 fc 00 00 00 00 	mov    DWORD PTR [rbp-0x4],0x0
+ 149:	8b 55 fc             	mov    edx,DWORD PTR [rbp-0x4]
+ 14c:	8b 03                	mov    eax,DWORD PTR [rbx]
+ 14e:	c1 e0 1f             	shl    eax,0x1f
+ 151:	01 d0                	add    eax,edx
+ 153:	89 45 fc             	mov    DWORD PTR [rbp-0x4],eax
+ 156:	8b 55 fc             	mov    edx,DWORD PTR [rbp-0x4]
+ 159:	8b 43 04             	mov    eax,DWORD PTR [rbx+0x4]
+ 15c:	c1 e0 17             	shl    eax,0x17
+ 15f:	01 d0                	add    eax,edx
+ 161:	89 45 fc             	mov    DWORD PTR [rbp-0x4],eax
+ 164:	8b 55 fc             	mov    edx,DWORD PTR [rbp-0x4]
+ 167:	8b 43 08             	mov    eax,DWORD PTR [rbx+0x8]
+ 16a:	01 d0                	add    eax,edx
+ 16c:	89 45 fc             	mov    DWORD PTR [rbp-0x4],eax
+ 16f:	f3 0f 10 45 fc       	movss  xmm0,DWORD PTR [rbp-0x4]
+ 174:	48 83 c4 18          	add    rsp,0x18
+ 178:	5b                   	pop    rbx
+ 179:	5d                   	pop    rbp
+ 17a:	c3                   	ret
+
+000000000000017b <IEEE754Binary64Create>:
+ 17b:	55                   	push   rbp
+ 17c:	48 89 e5             	mov    rbp,rsp
+ 17f:	48 83 ec 10          	sub    rsp,0x10
+ 183:	48 89 4d 10          	mov    QWORD PTR [rbp+0x10],rcx
+ 187:	c7 45 f0 00 00 00 00 	mov    DWORD PTR [rbp-0x10],0x0
+ 18e:	c7 45 f4 00 04 00 00 	mov    DWORD PTR [rbp-0xc],0x400
+ 195:	c7 45 f8 00 00 00 00 	mov    DWORD PTR [rbp-0x8],0x0
+ 19c:	c7 45 fc 00 00 00 00 	mov    DWORD PTR [rbp-0x4],0x0
+ 1a3:	48 8b 4d 10          	mov    rcx,QWORD PTR [rbp+0x10]
+ 1a7:	48 8b 45 f0          	mov    rax,QWORD PTR [rbp-0x10]
+ 1ab:	48 8b 55 f8          	mov    rdx,QWORD PTR [rbp-0x8]
+ 1af:	48 89 01             	mov    QWORD PTR [rcx],rax
+ 1b2:	48 89 51 08          	mov    QWORD PTR [rcx+0x8],rdx
+ 1b6:	48 8b 45 10          	mov    rax,QWORD PTR [rbp+0x10]
+ 1ba:	48 83 c4 10          	add    rsp,0x10
+ 1be:	5d                   	pop    rbp
+ 1bf:	c3                   	ret
+
+00000000000001c0 <IEEE754Binary64Set>:
+ 1c0:	55                   	push   rbp
+ 1c1:	53                   	push   rbx
+ 1c2:	48 83 ec 28          	sub    rsp,0x28
+ 1c6:	48 8d 6c 24 20       	lea    rbp,[rsp+0x20]
+ 1cb:	48 89 4d 20          	mov    QWORD PTR [rbp+0x20],rcx
+ 1cf:	48 89 d3             	mov    rbx,rdx
+ 1d2:	48 8b 03             	mov    rax,QWORD PTR [rbx]
+ 1d5:	48 8b 53 08          	mov    rdx,QWORD PTR [rbx+0x8]
+ 1d9:	48 89 45 e0          	mov    QWORD PTR [rbp-0x20],rax
+ 1dd:	48 89 55 e8          	mov    QWORD PTR [rbp-0x18],rdx
+ 1e1:	f2 0f 11 55 30       	movsd  QWORD PTR [rbp+0x30],xmm2
+ 1e6:	f2 0f 10 45 30       	movsd  xmm0,QWORD PTR [rbp+0x30]
+ 1eb:	f2 0f 11 45 f8       	movsd  QWORD PTR [rbp-0x8],xmm0
+ 1f0:	48 8b 45 f8          	mov    rax,QWORD PTR [rbp-0x8]
+ 1f4:	48 c1 e8 3f          	shr    rax,0x3f
+ 1f8:	89 45 e0             	mov    DWORD PTR [rbp-0x20],eax
+ 1fb:	48 8b 45 f8          	mov    rax,QWORD PTR [rbp-0x8]
+ 1ff:	48 c1 e8 34          	shr    rax,0x34
+ 203:	25 ff 07 00 00       	and    eax,0x7ff
+ 208:	89 45 e4             	mov    DWORD PTR [rbp-0x1c],eax
+ 20b:	48 8b 45 f8          	mov    rax,QWORD PTR [rbp-0x8]
+ 20f:	48 c1 e8 20          	shr    rax,0x20
+ 213:	25 ff ff 0f 00       	and    eax,0xfffff
+ 218:	89 45 e8             	mov    DWORD PTR [rbp-0x18],eax
+ 21b:	48 8b 45 f8          	mov    rax,QWORD PTR [rbp-0x8]
+ 21f:	89 45 ec             	mov    DWORD PTR [rbp-0x14],eax
+ 222:	48 8b 4d 20          	mov    rcx,QWORD PTR [rbp+0x20]
+ 226:	48 8b 45 e0          	mov    rax,QWORD PTR [rbp-0x20]
+ 22a:	48 8b 55 e8          	mov    rdx,QWORD PTR [rbp-0x18]
+ 22e:	48 89 01             	mov    QWORD PTR [rcx],rax
+ 231:	48 89 51 08          	mov    QWORD PTR [rcx+0x8],rdx
+ 235:	48 8b 45 20          	mov    rax,QWORD PTR [rbp+0x20]
+ 239:	48 83 c4 28          	add    rsp,0x28
+ 23d:	5b                   	pop    rbx
+ 23e:	5d                   	pop    rbp
+ 23f:	c3                   	ret
+
+0000000000000240 <IEEE754Binary64Get>:
+ 240:	55                   	push   rbp
+ 241:	53                   	push   rbx
+ 242:	48 83 ec 28          	sub    rsp,0x28
+ 246:	48 8d 6c 24 20       	lea    rbp,[rsp+0x20]
+ 24b:	48 89 cb             	mov    rbx,rcx
+ 24e:	48 8b 03             	mov    rax,QWORD PTR [rbx]
+ 251:	48 8b 53 08          	mov    rdx,QWORD PTR [rbx+0x8]
+ 255:	48 89 45 e0          	mov    QWORD PTR [rbp-0x20],rax
+ 259:	48 89 55 e8          	mov    QWORD PTR [rbp-0x18],rdx
+ 25d:	48 c7 45 f8 00 00 00 	mov    QWORD PTR [rbp-0x8],0x0
+ 264:	00 
+ 265:	48 8b 55 f8          	mov    rdx,QWORD PTR [rbp-0x8]
+ 269:	8b 45 e0             	mov    eax,DWORD PTR [rbp-0x20]
+ 26c:	89 c0                	mov    eax,eax
+ 26e:	48 c1 e0 3f          	shl    rax,0x3f
+ 272:	48 01 d0             	add    rax,rdx
+ 275:	48 89 45 f8          	mov    QWORD PTR [rbp-0x8],rax
+ 279:	48 8b 55 f8          	mov    rdx,QWORD PTR [rbp-0x8]
+ 27d:	8b 45 e4             	mov    eax,DWORD PTR [rbp-0x1c]
+ 280:	89 c0                	mov    eax,eax
+ 282:	48 c1 e0 34          	shl    rax,0x34
+ 286:	48 01 d0             	add    rax,rdx
+ 289:	48 89 45 f8          	mov    QWORD PTR [rbp-0x8],rax
+ 28d:	48 8b 55 f8          	mov    rdx,QWORD PTR [rbp-0x8]
+ 291:	8b 45 e8             	mov    eax,DWORD PTR [rbp-0x18]
+ 294:	89 c0                	mov    eax,eax
+ 296:	48 c1 e0 20          	shl    rax,0x20
+ 29a:	48 01 d0             	add    rax,rdx
+ 29d:	48 89 45 f8          	mov    QWORD PTR [rbp-0x8],rax
+ 2a1:	48 8b 45 f8          	mov    rax,QWORD PTR [rbp-0x8]
+ 2a5:	8b 55 e8             	mov    edx,DWORD PTR [rbp-0x18]
+ 2a8:	89 d2                	mov    edx,edx
+ 2aa:	48 01 d0             	add    rax,rdx
+ 2ad:	48 89 45 f8          	mov    QWORD PTR [rbp-0x8],rax
+ 2b1:	f2 0f 10 45 f8       	movsd  xmm0,QWORD PTR [rbp-0x8]
+ 2b6:	66 48 0f 7e c0       	movq   rax,xmm0
+ 2bb:	66 48 0f 6e c0       	movq   xmm0,rax
+ 2c0:	48 83 c4 28          	add    rsp,0x28
+ 2c4:	5b                   	pop    rbx
+ 2c5:	5d                   	pop    rbp
+ 2c6:	c3                   	ret
+
+00000000000002c7 <IEEE754Binary64FtoI>:
+ 2c7:	55                   	push   rbp
+ 2c8:	48 89 e5             	mov    rbp,rsp
+ 2cb:	48 83 ec 20          	sub    rsp,0x20
+ 2cf:	48 89 4d 10          	mov    QWORD PTR [rbp+0x10],rcx
+ 2d3:	f2 0f 11 4d 18       	movsd  QWORD PTR [rbp+0x18],xmm1
+ 2d8:	f2 0f 10 45 18       	movsd  xmm0,QWORD PTR [rbp+0x18]
+ 2dd:	f2 0f 11 45 e8       	movsd  QWORD PTR [rbp-0x18],xmm0
+ 2e2:	48 8b 45 e8          	mov    rax,QWORD PTR [rbp-0x18]
+ 2e6:	48 c1 e8 3f          	shr    rax,0x3f
+ 2ea:	89 45 f0             	mov    DWORD PTR [rbp-0x10],eax
+ 2ed:	48 8b 45 e8          	mov    rax,QWORD PTR [rbp-0x18]
+ 2f1:	48 c1 e8 34          	shr    rax,0x34
+ 2f5:	25 ff 07 00 00       	and    eax,0x7ff
+ 2fa:	89 45 f4             	mov    DWORD PTR [rbp-0xc],eax
+ 2fd:	48 8b 45 e8          	mov    rax,QWORD PTR [rbp-0x18]
+ 301:	48 c1 e8 20          	shr    rax,0x20
+ 305:	25 ff ff 0f 00       	and    eax,0xfffff
+ 30a:	89 45 f8             	mov    DWORD PTR [rbp-0x8],eax
+ 30d:	48 8b 45 e8          	mov    rax,QWORD PTR [rbp-0x18]
+ 311:	89 45 fc             	mov    DWORD PTR [rbp-0x4],eax
+ 314:	48 8b 4d 10          	mov    rcx,QWORD PTR [rbp+0x10]
+ 318:	48 8b 45 f0          	mov    rax,QWORD PTR [rbp-0x10]
+ 31c:	48 8b 55 f8          	mov    rdx,QWORD PTR [rbp-0x8]
+ 320:	48 89 01             	mov    QWORD PTR [rcx],rax
+ 323:	48 89 51 08          	mov    QWORD PTR [rcx+0x8],rdx
+ 327:	48 8b 45 10          	mov    rax,QWORD PTR [rbp+0x10]
+ 32b:	48 83 c4 20          	add    rsp,0x20
+ 32f:	5d                   	pop    rbp
+ 330:	c3                   	ret
+
+0000000000000331 <IEEE754Binary64ItoF>:
+ 331:	55                   	push   rbp
+ 332:	53                   	push   rbx
+ 333:	48 83 ec 28          	sub    rsp,0x28
+ 337:	48 8d 6c 24 20       	lea    rbp,[rsp+0x20]
+ 33c:	48 89 cb             	mov    rbx,rcx
+ 33f:	48 8b 03             	mov    rax,QWORD PTR [rbx]
+ 342:	48 8b 53 08          	mov    rdx,QWORD PTR [rbx+0x8]
+ 346:	48 89 45 e0          	mov    QWORD PTR [rbp-0x20],rax
+ 34a:	48 89 55 e8          	mov    QWORD PTR [rbp-0x18],rdx
+ 34e:	48 c7 45 f8 00 00 00 	mov    QWORD PTR [rbp-0x8],0x0
+ 355:	00 
+ 356:	48 8b 55 f8          	mov    rdx,QWORD PTR [rbp-0x8]
+ 35a:	8b 45 e0             	mov    eax,DWORD PTR [rbp-0x20]
+ 35d:	89 c0                	mov    eax,eax
+ 35f:	48 c1 e0 3f          	shl    rax,0x3f
+ 363:	48 01 d0             	add    rax,rdx
+ 366:	48 89 45 f8          	mov    QWORD PTR [rbp-0x8],rax
+ 36a:	48 8b 55 f8          	mov    rdx,QWORD PTR [rbp-0x8]
+ 36e:	8b 45 e4             	mov    eax,DWORD PTR [rbp-0x1c]
+ 371:	89 c0                	mov    eax,eax
+ 373:	48 c1 e0 34          	shl    rax,0x34
+ 377:	48 01 d0             	add    rax,rdx
+ 37a:	48 89 45 f8          	mov    QWORD PTR [rbp-0x8],rax
+ 37e:	48 8b 45 f8          	mov    rax,QWORD PTR [rbp-0x8]
+ 382:	8b 55 e8             	mov    edx,DWORD PTR [rbp-0x18]
+ 385:	89 d2                	mov    edx,edx
+ 387:	48 01 d0             	add    rax,rdx
+ 38a:	48 89 45 f8          	mov    QWORD PTR [rbp-0x8],rax
+ 38e:	48 8b 45 f8          	mov    rax,QWORD PTR [rbp-0x8]
+ 392:	8b 55 ec             	mov    edx,DWORD PTR [rbp-0x14]
+ 395:	89 d2                	mov    edx,edx
+ 397:	48 01 d0             	add    rax,rdx
+ 39a:	48 89 45 f8          	mov    QWORD PTR [rbp-0x8],rax
+ 39e:	f2 0f 10 45 f8       	movsd  xmm0,QWORD PTR [rbp-0x8]
+ 3a3:	66 48 0f 7e c0       	movq   rax,xmm0
+ 3a8:	66 48 0f 6e c0       	movq   xmm0,rax
+ 3ad:	48 83 c4 28          	add    rsp,0x28
+ 3b1:	5b                   	pop    rbx
+ 3b2:	5d                   	pop    rbp
+ 3b3:	c3                   	ret
+
+00000000000003b4 <IEEE754Binary128Create>:
+ 3b4:	55                   	push   rbp
+ 3b5:	48 89 e5             	mov    rbp,rsp
+ 3b8:	48 83 ec 20          	sub    rsp,0x20
+ 3bc:	48 89 4d 10          	mov    QWORD PTR [rbp+0x10],rcx
+ 3c0:	c7 45 e0 00 00 00 00 	mov    DWORD PTR [rbp-0x20],0x0
+ 3c7:	c7 45 e4 00 40 00 00 	mov    DWORD PTR [rbp-0x1c],0x4000
+ 3ce:	48 c7 45 e8 00 00 00 	mov    QWORD PTR [rbp-0x18],0x0
+ 3d5:	00 
+ 3d6:	48 c7 45 f0 00 00 00 	mov    QWORD PTR [rbp-0x10],0x0
+ 3dd:	00 
+ 3de:	48 8b 45 10          	mov    rax,QWORD PTR [rbp+0x10]
+ 3e2:	48 8b 55 e0          	mov    rdx,QWORD PTR [rbp-0x20]
+ 3e6:	48 89 10             	mov    QWORD PTR [rax],rdx
+ 3e9:	48 8b 55 e8          	mov    rdx,QWORD PTR [rbp-0x18]
+ 3ed:	48 89 50 08          	mov    QWORD PTR [rax+0x8],rdx
+ 3f1:	48 8b 55 f0          	mov    rdx,QWORD PTR [rbp-0x10]
+ 3f5:	48 89 50 10          	mov    QWORD PTR [rax+0x10],rdx
+ 3f9:	48 8b 45 10          	mov    rax,QWORD PTR [rbp+0x10]
+ 3fd:	48 83 c4 20          	add    rsp,0x20
+ 401:	5d                   	pop    rbp
+ 402:	c3                   	ret
+
+0000000000000403 <IEEE754Binary128Set>:
+ 403:	55                   	push   rbp
+ 404:	56                   	push   rsi
+ 405:	53                   	push   rbx
+ 406:	48 83 ec 20          	sub    rsp,0x20
+ 40a:	48 8d 6c 24 20       	lea    rbp,[rsp+0x20]
+ 40f:	48 89 4d 20          	mov    QWORD PTR [rbp+0x20],rcx
+ 413:	48 89 d3             	mov    rbx,rdx
+ 416:	4c 89 c6             	mov    rsi,r8
+ 419:	db 2e                	fld    TBYTE PTR [rsi]
+ 41b:	db 7d e0             	fstp   TBYTE PTR [rbp-0x20]
+ 41e:	db 6d e0             	fld    TBYTE PTR [rbp-0x20]
+ 421:	db 7d f0             	fstp   TBYTE PTR [rbp-0x10]
+ 424:	48 8b 45 f0          	mov    rax,QWORD PTR [rbp-0x10]
+ 428:	48 c1 e8 3f          	shr    rax,0x3f
+ 42c:	89 03                	mov    DWORD PTR [rbx],eax
+ 42e:	48 8b 45 f0          	mov    rax,QWORD PTR [rbp-0x10]
+ 432:	48 c1 e8 30          	shr    rax,0x30
+ 436:	25 ff 7f 00 00       	and    eax,0x7fff
+ 43b:	89 43 04             	mov    DWORD PTR [rbx+0x4],eax
+ 43e:	48 8b 55 f0          	mov    rdx,QWORD PTR [rbp-0x10]
+ 442:	48 b8 ff ff ff ff ff 	movabs rax,0xffffffffffff
+ 449:	ff 00 00 
+ 44c:	48 21 d0             	and    rax,rdx
+ 44f:	48 89 43 08          	mov    QWORD PTR [rbx+0x8],rax
+ 453:	48 8b 45 f8          	mov    rax,QWORD PTR [rbp-0x8]
+ 457:	48 89 43 10          	mov    QWORD PTR [rbx+0x10],rax
+ 45b:	48 8b 45 20          	mov    rax,QWORD PTR [rbp+0x20]
+ 45f:	48 8b 13             	mov    rdx,QWORD PTR [rbx]
+ 462:	48 89 10             	mov    QWORD PTR [rax],rdx
+ 465:	48 8b 53 08          	mov    rdx,QWORD PTR [rbx+0x8]
+ 469:	48 89 50 08          	mov    QWORD PTR [rax+0x8],rdx
+ 46d:	48 8b 53 10          	mov    rdx,QWORD PTR [rbx+0x10]
+ 471:	48 89 50 10          	mov    QWORD PTR [rax+0x10],rdx
+ 475:	48 8b 45 20          	mov    rax,QWORD PTR [rbp+0x20]
+ 479:	48 83 c4 20          	add    rsp,0x20
+ 47d:	5b                   	pop    rbx
+ 47e:	5e                   	pop    rsi
+ 47f:	5d                   	pop    rbp
+ 480:	c3                   	ret
+
+0000000000000481 <IEEE754Binary128Get>:
+ 481:	55                   	push   rbp
+ 482:	53                   	push   rbx
+ 483:	48 83 ec 18          	sub    rsp,0x18
+ 487:	48 8d 6c 24 10       	lea    rbp,[rsp+0x10]
+ 48c:	48 89 4d 20          	mov    QWORD PTR [rbp+0x20],rcx
+ 490:	48 89 d3             	mov    rbx,rdx
+ 493:	48 c7 45 f0 00 00 00 	mov    QWORD PTR [rbp-0x10],0x0
+ 49a:	00 
+ 49b:	48 c7 45 f8 00 00 00 	mov    QWORD PTR [rbp-0x8],0x0
+ 4a2:	00 
+ 4a3:	48 8b 55 f0          	mov    rdx,QWORD PTR [rbp-0x10]
+ 4a7:	8b 03                	mov    eax,DWORD PTR [rbx]
+ 4a9:	89 c0                	mov    eax,eax
+ 4ab:	48 c1 e0 3f          	shl    rax,0x3f
+ 4af:	48 01 d0             	add    rax,rdx
+ 4b2:	48 89 45 f0          	mov    QWORD PTR [rbp-0x10],rax
+ 4b6:	48 8b 55 f0          	mov    rdx,QWORD PTR [rbp-0x10]
+ 4ba:	8b 43 04             	mov    eax,DWORD PTR [rbx+0x4]
+ 4bd:	89 c0                	mov    eax,eax
+ 4bf:	48 c1 e0 30          	shl    rax,0x30
+ 4c3:	48 01 d0             	add    rax,rdx
+ 4c6:	48 89 45 f0          	mov    QWORD PTR [rbp-0x10],rax
+ 4ca:	48 8b 55 f0          	mov    rdx,QWORD PTR [rbp-0x10]
+ 4ce:	48 8b 43 08          	mov    rax,QWORD PTR [rbx+0x8]
+ 4d2:	48 01 d0             	add    rax,rdx
+ 4d5:	48 89 45 f0          	mov    QWORD PTR [rbp-0x10],rax
+ 4d9:	48 8b 55 f8          	mov    rdx,QWORD PTR [rbp-0x8]
+ 4dd:	48 8b 43 10          	mov    rax,QWORD PTR [rbx+0x10]
+ 4e1:	48 01 d0             	add    rax,rdx
+ 4e4:	48 89 45 f8          	mov    QWORD PTR [rbp-0x8],rax
+ 4e8:	db 6d f0             	fld    TBYTE PTR [rbp-0x10]
+ 4eb:	48 8b 45 20          	mov    rax,QWORD PTR [rbp+0x20]
+ 4ef:	db 38                	fstp   TBYTE PTR [rax]
+ 4f1:	48 8b 45 20          	mov    rax,QWORD PTR [rbp+0x20]
+ 4f5:	48 83 c4 18          	add    rsp,0x18
+ 4f9:	5b                   	pop    rbx
+ 4fa:	5d                   	pop    rbp
+ 4fb:	c3                   	ret
+
+00000000000004fc <IEEE754Binary128FtoI>:
+ 4fc:	55                   	push   rbp
+ 4fd:	53                   	push   rbx
+ 4fe:	48 83 ec 48          	sub    rsp,0x48
+ 502:	48 8d 6c 24 40       	lea    rbp,[rsp+0x40]
+ 507:	48 89 4d 20          	mov    QWORD PTR [rbp+0x20],rcx
+ 50b:	48 89 d3             	mov    rbx,rdx
+ 50e:	db 2b                	fld    TBYTE PTR [rbx]
+ 510:	db 7d c0             	fstp   TBYTE PTR [rbp-0x40]
+ 513:	db 6d c0             	fld    TBYTE PTR [rbp-0x40]
+ 516:	db 7d d0             	fstp   TBYTE PTR [rbp-0x30]
+ 519:	48 8b 45 d0          	mov    rax,QWORD PTR [rbp-0x30]
+ 51d:	48 c1 e8 3f          	shr    rax,0x3f
+ 521:	89 45 e0             	mov    DWORD PTR [rbp-0x20],eax
+ 524:	48 8b 45 d0          	mov    rax,QWORD PTR [rbp-0x30]
+ 528:	48 c1 e8 30          	shr    rax,0x30
+ 52c:	25 ff 7f 00 00       	and    eax,0x7fff
+ 531:	89 45 e4             	mov    DWORD PTR [rbp-0x1c],eax
+ 534:	48 8b 55 d0          	mov    rdx,QWORD PTR [rbp-0x30]
+ 538:	48 b8 ff ff ff ff ff 	movabs rax,0xffffffffffff
+ 53f:	ff 00 00 
+ 542:	48 21 d0             	and    rax,rdx
+ 545:	48 89 45 e8          	mov    QWORD PTR [rbp-0x18],rax
+ 549:	48 8b 45 d8          	mov    rax,QWORD PTR [rbp-0x28]
+ 54d:	48 89 45 f0          	mov    QWORD PTR [rbp-0x10],rax
+ 551:	48 8b 45 20          	mov    rax,QWORD PTR [rbp+0x20]
+ 555:	48 8b 55 e0          	mov    rdx,QWORD PTR [rbp-0x20]
+ 559:	48 89 10             	mov    QWORD PTR [rax],rdx
+ 55c:	48 8b 55 e8          	mov    rdx,QWORD PTR [rbp-0x18]
+ 560:	48 89 50 08          	mov    QWORD PTR [rax+0x8],rdx
+ 564:	48 8b 55 f0          	mov    rdx,QWORD PTR [rbp-0x10]
+ 568:	48 89 50 10          	mov    QWORD PTR [rax+0x10],rdx
+ 56c:	48 8b 45 20          	mov    rax,QWORD PTR [rbp+0x20]
+ 570:	48 83 c4 48          	add    rsp,0x48
+ 574:	5b                   	pop    rbx
+ 575:	5d                   	pop    rbp
+ 576:	c3                   	ret
+
+0000000000000577 <IEEE754Binary128ItoF>:
+ 577:	55                   	push   rbp
+ 578:	53                   	push   rbx
+ 579:	48 83 ec 18          	sub    rsp,0x18
+ 57d:	48 8d 6c 24 10       	lea    rbp,[rsp+0x10]
+ 582:	48 89 4d 20          	mov    QWORD PTR [rbp+0x20],rcx
+ 586:	48 89 d3             	mov    rbx,rdx
+ 589:	48 c7 45 f0 00 00 00 	mov    QWORD PTR [rbp-0x10],0x0
+ 590:	00 
+ 591:	48 c7 45 f8 00 00 00 	mov    QWORD PTR [rbp-0x8],0x0
+ 598:	00 
+ 599:	48 8b 55 f0          	mov    rdx,QWORD PTR [rbp-0x10]
+ 59d:	8b 03                	mov    eax,DWORD PTR [rbx]
+ 59f:	89 c0                	mov    eax,eax
+ 5a1:	48 c1 e0 3f          	shl    rax,0x3f
+ 5a5:	48 01 d0             	add    rax,rdx
+ 5a8:	48 89 45 f0          	mov    QWORD PTR [rbp-0x10],rax
+ 5ac:	48 8b 55 f0          	mov    rdx,QWORD PTR [rbp-0x10]
+ 5b0:	8b 43 04             	mov    eax,DWORD PTR [rbx+0x4]
+ 5b3:	89 c0                	mov    eax,eax
+ 5b5:	48 c1 e0 30          	shl    rax,0x30
+ 5b9:	48 01 d0             	add    rax,rdx
+ 5bc:	48 89 45 f0          	mov    QWORD PTR [rbp-0x10],rax
+ 5c0:	48 8b 55 f0          	mov    rdx,QWORD PTR [rbp-0x10]
+ 5c4:	48 8b 43 08          	mov    rax,QWORD PTR [rbx+0x8]
+ 5c8:	48 01 d0             	add    rax,rdx
+ 5cb:	48 89 45 f0          	mov    QWORD PTR [rbp-0x10],rax
+ 5cf:	48 8b 55 f8          	mov    rdx,QWORD PTR [rbp-0x8]
+ 5d3:	48 8b 43 10          	mov    rax,QWORD PTR [rbx+0x10]
+ 5d7:	48 01 d0             	add    rax,rdx
+ 5da:	48 89 45 f8          	mov    QWORD PTR [rbp-0x8],rax
+ 5de:	db 6d f0             	fld    TBYTE PTR [rbp-0x10]
+ 5e1:	48 8b 45 20          	mov    rax,QWORD PTR [rbp+0x20]
+ 5e5:	db 38                	fstp   TBYTE PTR [rax]
+ 5e7:	48 8b 45 20          	mov    rax,QWORD PTR [rbp+0x20]
+ 5eb:	48 83 c4 18          	add    rsp,0x18
+ 5ef:	5b                   	pop    rbx
+ 5f0:	5d                   	pop    rbp
+ 5f1:	c3                   	ret
+ 5f2:	90                   	nop
+ 5f3:	90                   	nop
+ 5f4:	90                   	nop
+ 5f5:	90                   	nop
+ 5f6:	90                   	nop
+ 5f7:	90                   	nop
+ 5f8:	90                   	nop
+ 5f9:	90                   	nop
+ 5fa:	90                   	nop
+ 5fb:	90                   	nop
+ 5fc:	90                   	nop
+ 5fd:	90                   	nop
+ 5fe:	90                   	nop
+ 5ff:	90                   	nop
+
+Disassembly of section .xdata:
+
+0000000000000000 <.xdata>:
+   0:	01 08                	add    DWORD PTR [rax],ecx
+   2:	03 05 08 12 04 03    	add    eax,DWORD PTR [rip+0x3041208]        # 3041210 <IEEE754Binary128ItoF+0x3040c99>
+   8:	01 50 00             	add    DWORD PTR [rax+0x0],edx
+   b:	00 01                	add    BYTE PTR [rcx],al
+   d:	0b 04 15 0b 03 06 22 	or     eax,DWORD PTR [rdx*1+0x2206030b]
+  14:	02 30                	add    dh,BYTE PTR [rax]
+  16:	01 50 01             	add    DWORD PTR [rax+0x1],edx
+  19:	0b 04 15 0b 03 06 22 	or     eax,DWORD PTR [rdx*1+0x2206030b]
+  20:	02 30                	add    dh,BYTE PTR [rax]
+  22:	01 50 01             	add    DWORD PTR [rax+0x1],edx
+  25:	08 03                	or     BYTE PTR [rbx],al
+  27:	05 08 12 04 03       	add    eax,0x3041208
+  2c:	01 50 00             	add    DWORD PTR [rax+0x0],edx
+  2f:	00 01                	add    BYTE PTR [rcx],al
+  31:	0b 04 15 0b 03 06 22 	or     eax,DWORD PTR [rdx*1+0x2206030b]
+  38:	02 30                	add    dh,BYTE PTR [rax]
+  3a:	01 50 01             	add    DWORD PTR [rax+0x1],edx
+  3d:	08 03                	or     BYTE PTR [rbx],al
+  3f:	05 08 12 04 03       	add    eax,0x3041208
+  44:	01 50 00             	add    DWORD PTR [rax+0x0],edx
+  47:	00 01                	add    BYTE PTR [rcx],al
+  49:	0b 04 25 0b 03 06 42 	or     eax,DWORD PTR ds:0x4206030b
+  50:	02 30                	add    dh,BYTE PTR [rax]
+  52:	01 50 01             	add    DWORD PTR [rax+0x1],edx
+  55:	0b 04 25 0b 03 06 42 	or     eax,DWORD PTR ds:0x4206030b
+  5c:	02 30                	add    dh,BYTE PTR [rax]
+  5e:	01 50 01             	add    DWORD PTR [rax+0x1],edx
+  61:	08 03                	or     BYTE PTR [rbx],al
+  63:	05 08 32 04 03       	add    eax,0x3043208
+  68:	01 50 00             	add    DWORD PTR [rax+0x0],edx
+  6b:	00 01                	add    BYTE PTR [rcx],al
+  6d:	0b 04 25 0b 03 06 42 	or     eax,DWORD PTR ds:0x4206030b
+  74:	02 30                	add    dh,BYTE PTR [rax]
+  76:	01 50 01             	add    DWORD PTR [rax+0x1],edx
+  79:	08 03                	or     BYTE PTR [rbx],al
+  7b:	05 08 32 04 03       	add    eax,0x3043208
+  80:	01 50 00             	add    DWORD PTR [rax+0x0],edx
+  83:	00 01                	add    BYTE PTR [rcx],al
+  85:	0c 05                	or     al,0x5
+  87:	25 0c 03 07 32       	and    eax,0x3207030c
+  8c:	03 30                	add    esi,DWORD PTR [rax]
+  8e:	02 60 01             	add    ah,BYTE PTR [rax+0x1]
+  91:	50                   	push   rax
+  92:	00 00                	add    BYTE PTR [rax],al
+  94:	01 0b                	add    DWORD PTR [rbx],ecx
+  96:	04 15                	add    al,0x15
+  98:	0b 03                	or     eax,DWORD PTR [rbx]
+  9a:	06                   	(bad)
+  9b:	22 02                	and    al,BYTE PTR [rdx]
+  9d:	30 01                	xor    BYTE PTR [rcx],al
+  9f:	50                   	push   rax
+  a0:	01 0b                	add    DWORD PTR [rbx],ecx
+  a2:	04 45                	add    al,0x45
+  a4:	0b 03                	or     eax,DWORD PTR [rbx]
+  a6:	06                   	(bad)
+  a7:	82                   	(bad)
+  a8:	02 30                	add    dh,BYTE PTR [rax]
+  aa:	01 50 01             	add    DWORD PTR [rax+0x1],edx
+  ad:	0b 04 15 0b 03 06 22 	or     eax,DWORD PTR [rdx*1+0x2206030b]
+  b4:	02 30                	add    dh,BYTE PTR [rax]
+  b6:	01                   	.byte 0x1
+  b7:	50                   	push   rax
+
+Disassembly of section .pdata:
+
+0000000000000000 <.pdata>:
+   0:	00 00                	add    BYTE PTR [rax],al
+   2:	00 00                	add    BYTE PTR [rax],al
+   4:	3c 00                	cmp    al,0x0
+   6:	00 00                	add    BYTE PTR [rax],al
+   8:	00 00                	add    BYTE PTR [rax],al
+   a:	00 00                	add    BYTE PTR [rax],al
+   c:	3c 00                	cmp    al,0x0
+   e:	00 00                	add    BYTE PTR [rax],al
+  10:	97                   	xchg   edi,eax
+  11:	00 00                	add    BYTE PTR [rax],al
+  13:	00 0c 00             	add    BYTE PTR [rax+rax*1],cl
+  16:	00 00                	add    BYTE PTR [rax],al
+  18:	97                   	xchg   edi,eax
+  19:	00 00                	add    BYTE PTR [rax],al
+  1b:	00 de                	add    dh,bl
+  1d:	00 00                	add    BYTE PTR [rax],al
+  1f:	00 18                	add    BYTE PTR [rax],bl
+  21:	00 00                	add    BYTE PTR [rax],al
+  23:	00 de                	add    dh,bl
+  25:	00 00                	add    BYTE PTR [rax],al
+  27:	00 34 01             	add    BYTE PTR [rcx+rax*1],dh
+  2a:	00 00                	add    BYTE PTR [rax],al
+  2c:	24 00                	and    al,0x0
+  2e:	00 00                	add    BYTE PTR [rax],al
+  30:	34 01                	xor    al,0x1
+  32:	00 00                	add    BYTE PTR [rax],al
+  34:	7b 01                	jnp    37 <.pdata+0x37>
+  36:	00 00                	add    BYTE PTR [rax],al
+  38:	30 00                	xor    BYTE PTR [rax],al
+  3a:	00 00                	add    BYTE PTR [rax],al
+  3c:	7b 01                	jnp    3f <.pdata+0x3f>
+  3e:	00 00                	add    BYTE PTR [rax],al
+  40:	c0 01 00             	rol    BYTE PTR [rcx],0x0
+  43:	00 3c 00             	add    BYTE PTR [rax+rax*1],bh
+  46:	00 00                	add    BYTE PTR [rax],al
+  48:	c0 01 00             	rol    BYTE PTR [rcx],0x0
+  4b:	00 40 02             	add    BYTE PTR [rax+0x2],al
+  4e:	00 00                	add    BYTE PTR [rax],al
+  50:	48 00 00             	rex.W add BYTE PTR [rax],al
+  53:	00 40 02             	add    BYTE PTR [rax+0x2],al
+  56:	00 00                	add    BYTE PTR [rax],al
+  58:	c7 02 00 00 54 00    	mov    DWORD PTR [rdx],0x540000
+  5e:	00 00                	add    BYTE PTR [rax],al
+  60:	c7 02 00 00 31 03    	mov    DWORD PTR [rdx],0x3310000
+  66:	00 00                	add    BYTE PTR [rax],al
+  68:	60                   	(bad)
+  69:	00 00                	add    BYTE PTR [rax],al
+  6b:	00 31                	add    BYTE PTR [rcx],dh
+  6d:	03 00                	add    eax,DWORD PTR [rax]
+  6f:	00 b4 03 00 00 6c 00 	add    BYTE PTR [rbx+rax*1+0x6c0000],dh
+  76:	00 00                	add    BYTE PTR [rax],al
+  78:	b4 03                	mov    ah,0x3
+  7a:	00 00                	add    BYTE PTR [rax],al
+  7c:	03 04 00             	add    eax,DWORD PTR [rax+rax*1]
+  7f:	00 78 00             	add    BYTE PTR [rax+0x0],bh
+  82:	00 00                	add    BYTE PTR [rax],al
+  84:	03 04 00             	add    eax,DWORD PTR [rax+rax*1]
+  87:	00 81 04 00 00 84    	add    BYTE PTR [rcx-0x7bfffffc],al
+  8d:	00 00                	add    BYTE PTR [rax],al
+  8f:	00 81 04 00 00 fc    	add    BYTE PTR [rcx-0x3fffffc],al
+  95:	04 00                	add    al,0x0
+  97:	00 94 00 00 00 fc 04 	add    BYTE PTR [rax+rax*1+0x4fc0000],dl
+  9e:	00 00                	add    BYTE PTR [rax],al
+  a0:	77 05                	ja     a7 <.pdata+0xa7>
+  a2:	00 00                	add    BYTE PTR [rax],al
+  a4:	a0 00 00 00 77 05 00 	movabs al,ds:0xf200000577000000
+  ab:	00 f2 
+  ad:	05 00 00 ac 00       	add    eax,0xac0000
+	...
+
+Disassembly of section .rdata$zzz:
+
+0000000000000000 <.rdata$zzz>:
+   0:	47                   	rex.RXB
+   1:	43                   	rex.XB
+   2:	43 3a 20             	rex.XB cmp spl,BYTE PTR [r8]
+   5:	28 78 38             	sub    BYTE PTR [rax+0x38],bh
+   8:	36 5f                	ss pop rdi
+   a:	36 34 2d             	ss xor al,0x2d
+   d:	77 69                	ja     78 <IEEE754Binary32Set+0x3c>
+   f:	6e                   	outs   dx,BYTE PTR ds:[rsi]
+  10:	33 32                	xor    esi,DWORD PTR [rdx]
+  12:	2d 73 65 68 2d       	sub    eax,0x2d686573
+  17:	72 65                	jb     7e <IEEE754Binary32Set+0x42>
+  19:	76 31                	jbe    4c <.rdata$zzz+0x4c>
+  1b:	2c 20                	sub    al,0x20
+  1d:	42 75 69             	rex.X jne 89 <IEEE754Binary32Set+0x4d>
+  20:	6c                   	ins    BYTE PTR es:[rdi],dx
+  21:	74 20                	je     43 <.rdata$zzz+0x43>
+  23:	62                   	(bad)
+  24:	79 20                	jns    46 <.rdata$zzz+0x46>
+  26:	4d 69 6e 47 57 2d 42 	imul   r13,QWORD PTR [r14+0x47],0x75422d57
+  2d:	75 
+  2e:	69 6c 64 73 20 70 72 	imul   ebp,DWORD PTR [rsp+riz*2+0x73],0x6f727020
+  35:	6f 
+  36:	6a 65                	push   0x65
+  38:	63 74 29 20          	movsxd esi,DWORD PTR [rcx+rbp*1+0x20]
+  3c:	31 33                	xor    DWORD PTR [rbx],esi
+  3e:	2e 32 2e             	cs xor ch,BYTE PTR [rsi]
+  41:	30 00                	xor    BYTE PTR [rax],al
+	...

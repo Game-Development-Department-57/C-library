@@ -45,3 +45,22 @@ void endianSet(void* src, int size)
   }
   return;
 }
+
+void endianReverse2(void* dst, void* src, int size)
+{
+  for (int i = 0; i < size; i++)
+    ((char*)dst)[i] = ((char*)src)[size-i-1];
+  return;
+}
+
+void endianSet2(void* dst, void* src, int size)
+{
+  if (endian_flag)
+  {
+    endianReverse2(dst, src, size);
+  }else
+  {
+    ;
+  }
+  return;
+}

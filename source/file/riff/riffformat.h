@@ -12,8 +12,8 @@ typedef struct tagRIFFCHUNK
   RIFFCHUNK** chunks; /* nest chunk array */
   FDWORD      id;     /* chunk id */
   FDWORD      format; /* chunk format */
-  FDWORD      length; /* chunk length */
-  long        offset; /* file seek */
+  FDWORD      size;   /* chunk length */
+  long        fp;     /* file seek */
   void*       ptr;    /* data buffer pointer */
 } RIFFCHUNK;
 
