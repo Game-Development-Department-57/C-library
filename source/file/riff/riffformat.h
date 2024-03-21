@@ -13,7 +13,7 @@ typedef struct tagRIFFCHUNK
   FDWORD      id;     /* chunk id */
   FDWORD      format; /* chunk format */
   FDWORD      size;   /* chunk length */
-  long        fp;     /* file seek */
+  long        seek;   /* file seek */
   void*       ptr;    /* data buffer pointer */
 } RIFFCHUNK;
 

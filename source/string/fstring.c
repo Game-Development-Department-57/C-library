@@ -39,7 +39,7 @@ char* FStringAlloc(int size)
   return malloc(sizeof(char) * FStringReservedSize(size));
 }
 
-FString* FStringInit(int size)
+FString* FStringCreate(int size)
 {
   if (size < 0) return NULL;
   
@@ -80,7 +80,7 @@ void FStringDelete(FString* string)
 FString* FStringSet(char* str)
 {
   int size = CStringLength(str);
-  FString* string = FStringInit(size);
+  FString* string = FStringCreate(size);
   if (string == NULL) return NULL;
   
   CStringCopy(string->string, str, size);
@@ -142,3 +142,4 @@ int FStringFill(FString* string, char charactor)
   for (int index = 0; index < length; index++) string->string[index] = charactor;
   return FSTRING_SCCESS;
 }
+

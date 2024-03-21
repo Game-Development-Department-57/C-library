@@ -12,3 +12,9 @@ int binarySet(void* ptr, int var, int size)
   return 1;
 }
 
+int binaryCpy(void* a, void* b, int size)
+{
+  for (int i = 0; i < size; i++)
+    ((unsigned char*) a)[i] = ((unsigned char*) b)[i];
+  return 1;
+}

@@ -11,6 +11,21 @@ int riffIdCheck(FDWORD id, char* cmp)
 
 int riffChunkSize(RIFFCHUNK* chunk);
 
+FDWORD riffGetId(RIFF* riff)
+{
+  FILE* fp = riff->fp;
+  FDWORD id;
+  fread(&id, fp, 4);
+  fseek(fp, -4, SEEK_CUR);
+  return id;
+}
+
+int riffIsSPChunk(FDWORD id)
+{
+  return riffIdCheck(id, "RIFF") || riffIdCheck(id, "LIST");
+}
+
+
 RIFF* riffCreate(const char* name)
 {
   FILE* fp = NULL;
@@ -36,12 +51,10 @@ void riffRead(RIFF* riff)
   riff->data = (RIFFCHUNK*) malloc(sizeof(RIFFCHUNK));
   if (riff->data == NULL) return;
 
-  fread(&riff->data->id,     4, 1, riff->fp);
-  fread(&riff->data->size,   4, 1, riff->fp);
-  riff->data->fp = ftell(riff->fp);
-  fread(&riff->data->format, 4, 1, riff->fp);
-
-  if (!riffIdCheck(riff->data->id, "RIFF"))
+  FDWORD id;
+  fread(&id, 4, 1, riff->fp);
+  fseek(fp, -4, SEEK_CUR);
+  if (!riffIdCheck(id, "RIFF"))
   {
     free(riff->data);
     return;
@@ -49,12 +62,26 @@ void riffRead(RIFF* riff)
 
   STACK* stack;
   stack = stackCreate();
-  RIFFCHUNK* chunk = riff->data->chunks;
+  RIFFCHUNK* chunk  = riff->data;
+  FILE*      fp     = riff->fp;
+  RIFFCHUNK* parent = NULL;
   do
   {
     do
     {
-      ;
+      fread(&chunk->id,   4, 1, fp);
+      fread(&chunk->size, 4, 1, fp);
+      chunk->seek = ftell(fp);
+      chunk->ptr  = NULL;
+      if (riffIsSPChunk(chunk->id))
+      {
+        fread(&chunk->format, 4, 1, fp);
+        chunk->parent = parent;
+        
+      }else
+      {
+        
+      }
     }while(riffChunkSize(chunk) != chunk->parent->size);
   }while(stackLengthGet(stack) != 0);
 }
