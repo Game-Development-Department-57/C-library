@@ -33,6 +33,8 @@ void    listDelete(List list)
     free(now);
   }
   
+  free(list);
+  
   return;
 }
 
