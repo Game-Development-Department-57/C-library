@@ -1,0 +1,9 @@
+#ifndef DATA_LIST_LIST_ERROR_H
+#define DATA_LIST_LIST_ERROR_H
+
+#define LIST_ERROR_SUCCESS     0
+#define LIST_ERROR_ERROR      -1
+#define LIST_ERROR_LISTNULL   -2
+#define LIST_ERROR_OUTOFRANGE -3;
+
+#endif

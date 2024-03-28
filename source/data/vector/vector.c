@@ -75,6 +75,7 @@ int vectorResize(VECTOR* vector, size_t size)
     if (buffer == NULL) {return -1;}
     vector->vector = buffer;
   }
+  
   vector->reserved = reserved_size;
   return 0;
 }
