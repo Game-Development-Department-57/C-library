@@ -2,13 +2,12 @@
 
 
 
+#include "list_std.h"
 #include "list_base.h"
-#include "list_types.h"
-#include "list_error.h"
 
 
 
-List*   listCreate(void)
+List    listCreate(void)
 {
   List list = (List) malloc(sizeof(LIST));
   if (list == NULL) return NULL;
@@ -24,13 +23,14 @@ void    listDelete(List list)
 {
   if (list == NULL) return;
   
-  LISTNODE* next, now;
+  LISTNODE *next, *now;
   
   now = list->begin;
   for (Index index = 0; index < list->length; index++)
   {
     next = now->next;
     free(now);
+    now = next;
   }
   
   free(list);
@@ -38,7 +38,7 @@ void    listDelete(List list)
   return;
 }
 
-int     listAdd(List list, Item item)
+err     listAdd(List list, Item item)
 {
   if (list == NULL) return -1;
   
@@ -60,13 +60,16 @@ int     listAdd(List list, Item item)
   }
   
   list_node->item = item;
-  list->lnegth++;
+  list->length++;
   
   return LIST_ERROR_SUCCESS;
 }
 
-int     listDel(List list, Index index)
+err     listDel(List list, Index index)
 {
+  if (list == NULL) return LIST_ERROR_NULL;
+  if (!listIndexRange(list, index)) return LIST_ERROR_NODE_NULL;
+  
   LISTNODE* list_node = listAccess(list, index);
   if (list_node == NULL) return LIST_ERROR_ERROR;
   
@@ -88,19 +91,112 @@ int     listDel(List list, Index index)
   return LIST_ERROR_SUCCESS;
 }
 
-int     listAdds(List list, Item* item){}
+err     listCrean(List list)
+{
+  LISTNODE *next, *now;
+  
+  now = list->begin;
+  for (Index index = 0; index < list->length; index++)
+  {
+    next = now->next;
+    now->item = NULL;
+    now = next;
+  }
+  
+  return LIST_ERROR_SUCCESS;
+}
 
-int     listDels(List list, Index* index){}
+err     listFill(List list, Item item)
+{
+  LISTNODE *next, *now;
+  
+  now = list->begin;
+  for (Index index = 0; index < list->length; index++)
+  {
+    next = now->next;
+    now->item = item;
+    now = next;
+  }
+  
+  return LIST_ERROR_SUCCESS;
+}
 
-int     listCrean(List list){}
+Item    listGet(List list, Index index)
+{
+  LISTNODE* list_node = listAccess(list, index);
+  if (list_node == NULL) return NULL;
+  return list_node->item;
+}
 
-int     listFill(List list, Item){}
+err     listSet(List list, Index index, Item item)
+{
+  LISTNODE* list_node = listAccess(list, index);
+  if (list_node == NULL) return LIST_ERROR_ERROR;
+  list_node->item = item;
+  return LIST_ERROR_SUCCESS;
+}
 
-Item    listGet(List list, Index index){}
+int     listLength(List list)
+{
+  return list->length;
+}
 
-int     listSet(List list, Index index, Item item){}
-
-int     listLength(List list){}
-
-
-int     listInsert(List list, Index index, Item item){}
+List listCopy(List list)
+{
+  List l = (List) malloc(sizeof(LIST));
+  if (l == NULL) return NULL;
+  
+  l->length = list->length;
+  if (l->length == 0)
+  {
+    l->begin = NULL;
+    l->end   = NULL;
+    return l;
+  }
+  
+  LISTNODE *now, *node_now, *node_last;
+  long      i, length;
+  now       = list->begin;
+  node_now  = NULL;
+  node_last = NULL;
+  i         = 0;
+  length    = l->length-1;
+  
+  node_now = listNodeCreate();
+  if (node_now == NULL) goto exception;
+  node_now->item = now->item;
+  node_now->prev = node_last;
+  node_last = node_now;
+  now       = now->next;
+  l->begin  = node_now;
+  
+  for (; i < length; i++)
+  {
+    node_now = listNodeCreate();
+    if (node_now == NULL) goto exception;
+    node_now->item = now->item;
+    node_now->prev = node_last;
+    
+    node_last = node_now;
+    now       = now->next;
+  }
+  
+  l->end = node_now;
+  
+  return l;
+  
+  
+  exception:
+  LISTNODE* next;
+  now = NULL; // 再利用
+  now = l->begin;
+  for (long index = 0; index < i; index++)
+  {
+    next = now->next;
+    free(now);
+    now = next;
+  }
+  free(l);
+  
+  return NULL;
+}

@@ -1,170 +1,123 @@
 #include <stdlib.h>
-#include "list.h"
 
-typedef struct tagLISTHEADER
+#include "list_std.h"
+#include "list_base.h"
+
+err     listInsert(List list, Index index, Item item)
 {
-  int       length;
-  LISTCONT* begin;
-  LISTCONT* end;
-} LISTHEADER;
-
-typedef struct tagLISTCONT
-{
-  void*     item;
-  LISTCONT* prev;
-  LISTCONT* next;
-} LISTCONT;
-
-typedef LISTHEADER LIST;
-
-
-int listLength(LIST* list)
-{
-  if (list == NULL) return -1;
-  return list->length;
-}
-
-int listRenge(LIST* list, int index)
-{
-  if (   ( index   < listLength(list))
-      && (-index-1 < listLength(list)))
-    return 0;
-  return -1;
-}
-
-int listConvertIndex(int index)
-{
-  return -index-1;
-}
-
-int listPConvertIndex(int index)
-{
-  return (index < 0) ? listConvertIndex(index) : index;
-}
-
-int listNConvertIndex(int index)
-{
-  return (index > -1) ? listConvertIndex(index) : index;
-}
-
-int listIsBegin(LIST* list, int index)
-{
-  return list->begin == listAccess(list, index);
-}
-
-int listIsEnd(LIST* list, int index)
-{
-  return list->end   == listAccess(list, index);
-}
-
-
-
-LISTCONT* listAlloc(void* item)
-{
-  LISTCONT* cont = (LISTCONT*) malloc(sizeof(LISTCONT));
-  if (cont == NULL) return NULL;
+  if (list == NULL) return LIST_ERROR_NULL;
+  if (!listIndexRange(list, index)) return LIST_ERROR_OUTOFRANGE;
   
-  cont->item = item;
-  cont->prev = NULL;
-  cont->next = NULL;
+  LISTNODE* node = listNodeCreate();
+  if (node == NULL) return LIST_ERROR_NODE_NULL;
   
-  return cont;
-}
-
-LISTCONT* listAccess(LIST* list, int index)
-{
-  int       now;
-  LISTCONT* cont;
-
-  if (listRenge(list, index))
-    return NULL;
-
-  if (index < 0)
-  {
-    now  = -1;
-    cont = list->end;
-    for (; now > index; now--)
-      cont = cont->prev;
-  } else
-  {
-    now  = 0;
-    cont = list->begin;
-    for (; now < index; now++)
-      cont = cont->next;
-  }
+  LISTNODE* next   = listAccess(list, index);
+  node->item       = item;
   
-  return cont;
-}
-
-LIST* listNew(void)
-{
-  LIST* list = (LIST*) malloc(sizeof(LIST));
-  if (list == NULL) return NULL;
-  
-  list->length = 0;
-  list->begin  = NULL;
-  list->end    = NULL;
-  
-  return list;
-}
-
-LIST* listCreate(void* item)
-{
-  LIST* list = listNew();
-  if (list == NULL) return NULL;
-  
-  LISTCONT* cont = listAlloc(item);
-  if (cont == NULL) 
-  {
-    free(list);
-    return NULL;
-  }
-
-  list->length = 1;
-  list->begin  = cont;
-  list->end    = cont;
-  
-  return list;
-}
-
-int listAdd(LIST* list, void* item)
-{
-  LISTCONT* next = listAlloc(item);
-  if (next == NULL) return -1;
-  
-  LISTCONT* prev = listAccess(list, -1);
-  prev->next = next;
-  next->prev = prev;
+  node->prev       = next->prev;
+  node->next       = next;
+  next->prev->next = node;
+  next->prev       = node;
   list->length++;
-  list->end = next;
-  return 0;
-}
-
-int listDel(LIST* list, int index)
-{
-  LISTCONT* cont = listAccess(list, index);
-  if (cont == NULL) return -1;
-  cont->prev->next = cont->next;
-  cont->next->prev = cont->prev;
-  list->length--;
-  if (list->begin == cont) list->end   = cont->prev;
-  if (list->end   == cont) list->begin = cont->next;
-  free(cont);
   
-  return 0;
+  return LIST_ERROR_SUCCESS;
 }
 
-void* listItemGet(LIST* list, int index)
+List    listSplit(List list, Index index)
 {
-  LISTCONT* cont = listAccess(list, index);
-  if (cont == NULL) return NULL;
-  return cont->item;
+  if (list == NULL)                 return NULL;
+  if (!listIndexRange(list, index)) return NULL;
+  
+  LISTNODE* node = listAccess(list, index);
+  if (node == NULL) return NULL;
+  List      list_ = listCreate();
+  if (list_ == NULL) return NULL;
+  
+  list_->begin  = node;
+  list_->end    = list->end;
+  list->end     = node->prev;
+  list_->length = list->length - listIndexConvertP(index);
+  list->length  = listIndexConvertP(index);
+  
+  list_->begin->prev = NULL;
+  list_->end->next   = NULL;
+  
+  return list_;
 }
 
-int listItemSet(LIST* list, int index, void* item)
+List    listJoin(List a, List b)
 {
-  LISTCONT* cont = listAccess(list, index);
-  if (cont == NULL) return -1;
-  cont->item = item;
-  return 0;
+  if (a == NULL) return NULL;
+  if (b == NULL) return NULL;
+  
+  a->end->next = b->begin;
+  b->begin     = a->end;
+  a->end       = b->end;
+  a->length   += b->length;
+  
+  free(b);
+}
+
+List    listSlice(List list, Index begin, Index end)
+{
+  if (list == NULL) return NULL;
+  if (!listIndexRange(list, begin)) return NULL;
+  if (!listIndexRange(list, end)) return NULL;
+  
+  List l = (List) malloc(sizeof(LIST));
+  if (l == NULL) return NULL;
+  
+  l->length = listIndexConvertP(end) - listIndexConvertP(begin);
+  if (l->length == 0)
+  {
+    l->begin = NULL;
+    l->end   = NULL;
+    return l;
+  }
+  
+  LISTNODE *now, *node_now, *node_last;
+  long      i, length;
+  now       = listAccess(list, begin);
+  node_now  = NULL;
+  node_last = NULL;
+  i         = 0;
+  length    = l->length-1;
+  
+  node_now = listNodeCreate();
+  if (node_now == NULL) goto exception;
+  node_now->item = now->item;
+  node_now->prev = node_last;
+  node_last = node_now;
+  now       = now->next;
+  l->begin  = node_now;
+  
+  for (; i < length; i++)
+  {
+    node_now = listNodeCreate();
+    if (node_now == NULL) goto exception;
+    node_now->item = now->item;
+    node_now->prev = node_last;
+    
+    node_last = node_now;
+    now       = now->next;
+  }
+  
+  l->end = node_now;
+  
+  return l;
+  
+  
+  exception:
+  LISTNODE* next;
+  now = NULL; // 再利用
+  now = l->begin;
+  for (long index = 0; index < i; index++)
+  {
+    next = now->next;
+    free(now);
+    now = next;
+  }
+  free(l);
+  
+  return NULL;
 }

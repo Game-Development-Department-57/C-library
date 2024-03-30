@@ -18,17 +18,17 @@ Index     listIndexConvertN(Index index)
 
 int       listIndexRange(List list, Index index)
 {
-  return (-list->length-1 < index) && (index < list->index);
+  return (-list->length-1 < index) && (index < list->length);
 }
 
 int       listIsBegin(List list, Index index)
 {
-  return 0 == listIndexConvetP(index);
+  return listIndexConvertP(index) == 0;
 }
 
 int       listIsEnd(List list, Index index)
 {
-  return list->length-1 == listIndexConvetP(index);
+  return listIndexConvertP(index) == list->length-1;
 }
 
 LISTNODE* listNodeCreate(void)
@@ -38,8 +38,6 @@ LISTNODE* listNodeCreate(void)
 
 LISTNODE* listAccess(List list, Index index)
 {
-  if (!listIndexRange(list, index)) return NULL;
-  
   LISTNODE* now;
   if (index < 0)
   {
