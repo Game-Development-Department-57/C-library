@@ -2,14 +2,15 @@
 
 #include "list_std.h"
 #include "list_base.h"
+#include "list_basic.h"
 
 err     listInsert(List list, Index index, Item item)
 {
-  if (list == NULL) return LIST_ERROR_NULL;
+  if (list == NULL) return LIST_ERROR_LISTNULL;
   if (!listIndexRange(list, index)) return LIST_ERROR_OUTOFRANGE;
   
   LISTNODE* node = listNodeCreate();
-  if (node == NULL) return LIST_ERROR_NODE_NULL;
+  if (node == NULL) return LIST_ERROR_ACCESSNULL;
   
   LISTNODE* next   = listAccess(list, index);
   node->item       = item;

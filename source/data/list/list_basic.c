@@ -40,10 +40,10 @@ void    listDelete(List list)
 
 err     listAdd(List list, Item item)
 {
-  if (list == NULL) return -1;
+  if (list == NULL) return LIST_ERROR_LISTNULL;
   
   LISTNODE* list_node = listNodeCreate();
-  if (list_node == NULL) return -1;
+  if (list_node == NULL) return LIST_ERROR_ALLOCNULL;
   
   if (list->length == 0)
   {
@@ -67,11 +67,11 @@ err     listAdd(List list, Item item)
 
 err     listDel(List list, Index index)
 {
-  if (list == NULL) return LIST_ERROR_NULL;
-  if (!listIndexRange(list, index)) return LIST_ERROR_NODE_NULL;
+  if (list == NULL) return LIST_ERROR_LISTNULL;
+  if (!listIndexRange(list, index)) return LIST_ERROR_OUTOFRANGE;
   
   LISTNODE* list_node = listAccess(list, index);
-  if (list_node == NULL) return LIST_ERROR_ERROR;
+  if (list_node == NULL) return LIST_ERROR_ACCESSNULL;
   
   list_node->prev->next = list_node->next;
   list_node->next->prev = list_node->prev;
@@ -93,6 +93,7 @@ err     listDel(List list, Index index)
 
 err     listCrean(List list)
 {
+  if (list == NULL) return LIST_ERROR_LISTNULL;
   LISTNODE *next, *now;
   
   now = list->begin;
@@ -108,13 +109,15 @@ err     listCrean(List list)
 
 err     listFill(List list, Item item)
 {
+  if (list == NULL) return LIST_ERROR_LISTNULL;
+  
   LISTNODE *next, *now;
   
   now = list->begin;
   for (Index index = 0; index < list->length; index++)
   {
     next = now->next;
-    now->item = item;
+    free(now);
     now = next;
   }
   
@@ -123,6 +126,8 @@ err     listFill(List list, Item item)
 
 Item    listGet(List list, Index index)
 {
+  if (list == NULL) return NULL;
+  if (!listIndexRange(list, index)) return NULL;
   LISTNODE* list_node = listAccess(list, index);
   if (list_node == NULL) return NULL;
   return list_node->item;
@@ -130,19 +135,24 @@ Item    listGet(List list, Index index)
 
 err     listSet(List list, Index index, Item item)
 {
+  if (list == NULL) return LIST_ERROR_LISTNULL;
+  if (!listIndexRange(list, index)) return LIST_ERROR_OUTOFRANGE;
   LISTNODE* list_node = listAccess(list, index);
-  if (list_node == NULL) return LIST_ERROR_ERROR;
+  if (list_node == NULL) return LIST_ERROR_ACCESSNULL;
   list_node->item = item;
   return LIST_ERROR_SUCCESS;
 }
 
 int     listLength(List list)
 {
+  if (list == NULL) return NULL;
   return list->length;
 }
 
 List listCopy(List list)
 {
+  if (list == NULL) return NULL;
+  
   List l = (List) malloc(sizeof(LIST));
   if (l == NULL) return NULL;
   
