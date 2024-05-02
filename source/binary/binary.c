@@ -18,3 +18,24 @@ int binaryCpy(void* a, void* b, int size)
     ((unsigned char*) a)[i] = ((unsigned char*) b)[i];
   return 1;
 }
+
+
+typedef struct tagBITCHAR
+{
+  char bits[9];
+} BITCHAR;
+
+BITCHAR binaryByteToBitchar(unsigned char byte)
+{
+  BITCHAR bit;
+  bit.bits[8] = 0x00;
+  for(int i = 0; i < 8; i++){bit.bits[i] = 0x30 + (byte & (0x80 >> i));}
+  return bit;
+}
+
+unsigned char binaryBitcharToByte(BITCHAR bit)
+{
+  unsigned char byte = 0;
+  for (int i = 0; i < 8; i++){byte += ((bit.bits[i] - 0x30) * (0x80 >> i));}
+  return byte;
+}
