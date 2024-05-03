@@ -25,6 +25,10 @@ err型(int型)の32bitを次のように利用する。
 | errGetReserved(err) | Reserved取得 |
 | errGetRecordA(err)  | Record-A取得 |
 | errGetRecordB(err)  | Record-B取得 |
+| errSetSign(err)     |   Sign代入   |
+| errSetReserved(err) | Reserved代入 |
+| errSetRecordA(err)  | Record-A代入 |
+| errSetRecordB(err)  | Record-B代入 |
 
 ## 定数群
 |      define      |         説明         |

@@ -15,32 +15,17 @@ typedef int err;
 #define errShiftRecordB  0
 
 
-inline int errGetSign(err id);
-inline int errGetReserved(err id);
-inline int errGetRecordA(err id);
-inline int errGetRecordB(err id);
+#define errGetSign(id)     ((id & errMaskSign)     >> errShiftSign)
+#define errGetReserved(id) ((id & errMaskReserved) >> errShiftReserved)
+#define errGetRecordA(id)  ((id & errMaskRecordA)  >> errShiftRecordA)
+#define errGetRecordB(id)  ((id & errMaskRecordB)  >> errShiftRecordB)
+#define errSetSign(id)     (id << errShiftSign)
+#define errSetReserved(id) (id << errShiftReserved)
+#define errSetRecordA(id)  (id << errShiftRecordA)
+#define errSetRecordB(id)  (id << errShiftRecordB)
 
-/* inline err.c begin */
-int errGetSign(err id)
-{
-  return (id & errMaskSign) >> errShiftSign;
-}
-
-int errGetReserved(err id)
-{
-  return (id & errMaskReserved) >> errShiftReserved;
-}
-
-int errGetRecordA(err id)
-{
-  return (id & errMaskRecordA) >> errShiftRecordA;
-}
-
-int errGetRecordB(err id)
-{
-  return (id & errMaskRecordB) >> errShiftRecordB;
-}
-/* inline err.c end */
+#define errSetAll(sign, reserved, recorda, recordb) \
+(errSetSign(sign) + errSetReserved(reserved) + errSetRecordA(recorda) + errSetRecordB(recordb))
 
 
 #endif
