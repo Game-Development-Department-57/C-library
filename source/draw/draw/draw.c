@@ -26,6 +26,7 @@ made:Fujiwara
 
 #include <stdlib.h>
 #include "binary/binary.h" /* library/binary/binary.h */
+#include "binary/ftype.h"
 
 
 

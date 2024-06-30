@@ -1,0 +1,23 @@
+\doxysection{tag\+LIST Struct Reference}
+\hypertarget{structtag_l_i_s_t}{}\label{structtag_l_i_s_t}\index{tagLIST@{tagLIST}}
+
+
+Collaboration diagram for tag\+LIST\+:
+% FIG 0
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structtag_l_i_s_t_a6e52e9d147809df6d5a2576d26be26d4}\label{structtag_l_i_s_t_a6e52e9d147809df6d5a2576d26be26d4} 
+long {\bfseries length}
+\item 
+\Hypertarget{structtag_l_i_s_t_a55e3cc5838f8f53c04fd2ed35e6d1947}\label{structtag_l_i_s_t_a55e3cc5838f8f53c04fd2ed35e6d1947} 
+\mbox{\hyperlink{structtag_l_i_s_t_n_o_d_e}{LISTNODE}} \texorpdfstring{$\ast$}{*} {\bfseries begin}
+\item 
+\Hypertarget{structtag_l_i_s_t_acf38451e4a5e878e077e06ae9f20abb7}\label{structtag_l_i_s_t_acf38451e4a5e878e077e06ae9f20abb7} 
+\mbox{\hyperlink{structtag_l_i_s_t_n_o_d_e}{LISTNODE}} \texorpdfstring{$\ast$}{*} {\bfseries end}
+\end{DoxyCompactItemize}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+GDD/\+Desktop/program/c/library/source/data/list/list\+\_\+types.\+h\end{DoxyCompactItemize}

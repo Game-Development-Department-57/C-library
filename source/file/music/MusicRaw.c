@@ -17,4 +17,7 @@ MusicRaw* MusicRawInit(void)
   return music;
 }
 
-int MusicRawData
+int MusicRawDataLoad(MusicRaw* music, char* fileName)
+{
+  return 0;
+}

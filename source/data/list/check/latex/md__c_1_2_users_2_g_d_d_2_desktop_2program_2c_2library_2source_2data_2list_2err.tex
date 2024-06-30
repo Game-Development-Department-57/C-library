@@ -1,0 +1,27 @@
+\chapter{listライブラリーのerr型について}
+\hypertarget{md__c_1_2_users_2_g_d_d_2_desktop_2program_2c_2library_2source_2data_2list_2err}{}\label{md__c_1_2_users_2_g_d_d_2_desktop_2program_2c_2library_2source_2data_2list_2err}\index{listライブラリーのerr型について@{listライブラリーのerr型について}}
+\label{md__c_1_2_users_2_g_d_d_2_desktop_2program_2c_2library_2source_2data_2list_2err_autotoc_md0}%
+\Hypertarget{md__c_1_2_users_2_g_d_d_2_desktop_2program_2c_2library_2source_2data_2list_2err_autotoc_md0}%
+\hypertarget{md__c_1_2_users_2_g_d_d_2_desktop_2program_2c_2library_2source_2data_2list_2err_autotoc_md1}{}\doxysection{\texorpdfstring{目次}{目次}}\label{md__c_1_2_users_2_g_d_d_2_desktop_2program_2c_2library_2source_2data_2list_2err_autotoc_md1}
+割り当て規則 割り当て番号\hypertarget{md__c_1_2_users_2_g_d_d_2_desktop_2program_2c_2library_2source_2data_2list_2err_autotoc_md2}{}\doxysection{\texorpdfstring{割り当て規則}{割り当て規則}}\label{md__c_1_2_users_2_g_d_d_2_desktop_2program_2c_2library_2source_2data_2list_2err_autotoc_md2}
+err型(int型)の32bitを次のように利用する。 範囲\+: 幅\+: 用途 31bit\+: 1bit\+: 正負のフラグ 30-\/24bit\+: 7bit\+: 予約 23-\/12bit\+:12bit\+: クラス 11-\/ 0bit\+:12bit\+: 詳細
+
+基本的にエラーの割り当ては、負の値であるため正の値が割り当てられるのは特殊な場合である。 0は必ず\+SUCCESSである。\hypertarget{md__c_1_2_users_2_g_d_d_2_desktop_2program_2c_2library_2source_2data_2list_2err_autotoc_md3}{}\doxysection{\texorpdfstring{割り当て番号}{割り当て番号}}\label{md__c_1_2_users_2_g_d_d_2_desktop_2program_2c_2library_2source_2data_2list_2err_autotoc_md3}
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{3}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ ID   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ NAME   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ 意味    }\\\cline{1-3}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ ID   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ NAME   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ 意味    }\\\cline{1-3}
+\endhead
+\PBS\centering 0x00000001   &\PBS\centering UNDEFINED   &\PBS\centering 未定義    \\\cline{1-3}
+\PBS\centering 0x00000000   &\PBS\centering SUCCESS   &\PBS\centering 正常    \\\cline{1-3}
+\PBS\centering 0x80000000   &\PBS\centering ERROR   &\PBS\centering 異常    \\\cline{1-3}
+\PBS\centering 0x80001000   &\PBS\centering LISTNULL   &\PBS\centering LISTが\+NULL    \\\cline{1-3}
+\PBS\centering 0x80001001   &\PBS\centering ALLOCNULL   &\PBS\centering ALLOCできない    \\\cline{1-3}
+\PBS\centering 0x80001002   &\PBS\centering ACCESSNULL   &\PBS\centering ACCESS先が\+NULL    \\\cline{1-3}
+\PBS\centering 0x80002000   &\PBS\centering OUTOFRANGE   &\PBS\centering INDEXが範囲を超過   \\\cline{1-3}
+\end{longtabu}

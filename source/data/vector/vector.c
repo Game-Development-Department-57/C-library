@@ -87,7 +87,7 @@ size_t vectorGetReserved(VECTOR* vector)
 
 size_t vectorGetSize(VECTOR* vector)
 {
-  return vector->size;
+  return vector->length;
 }
 void*  vectorGetBuffer(VECTOR* vector)
 {

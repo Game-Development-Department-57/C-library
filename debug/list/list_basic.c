@@ -145,7 +145,7 @@ err     listSet(List list, Index index, Item item)
 
 int     listLength(List list)
 {
-  if (list == NULL) return -1;
+  if (list == NULL) return NULL;
   return list->length;
 }
 

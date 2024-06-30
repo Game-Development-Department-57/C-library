@@ -15,7 +15,7 @@ FDWORD riffGetId(RIFF* riff)
 {
   FILE* fp = riff->fp;
   FDWORD id;
-  fread(&id, fp, 4);
+  fread(&id, 4, 1, fp);
   fseek(fp, -4, SEEK_CUR);
   return id;
 }
@@ -53,7 +53,7 @@ void riffRead(RIFF* riff)
 
   FDWORD id;
   fread(&id, 4, 1, riff->fp);
-  fseek(fp, -4, SEEK_CUR);
+  fseek(riff->fp, -4, SEEK_CUR);
   if (!riffIdCheck(id, "RIFF"))
   {
     free(riff->data);
