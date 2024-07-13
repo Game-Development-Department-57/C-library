@@ -10,7 +10,7 @@ err     listInsert(List list, Index index, Item item)
   if (!listIndexRange(list, index)) return LIST_ERROR_OUTOFRANGE;
   
   LISTNODE* node = listNodeCreate();
-  if (node == NULL) return LIST_ERROR_ACCESSNULL;
+  if (node == NULL) return LIST_ERROR_ALLOCNULL;
   
   LISTNODE* next   = listAccess(list, index);
   node->item       = item;
@@ -29,19 +29,15 @@ List    listSplit(List list, Index index)
   if (list == NULL)                 return NULL;
   if (!listIndexRange(list, index)) return NULL;
   
-  LISTNODE* node = listAccess(list, index);
-  if (node == NULL) return NULL;
-  List      list_ = listCreate();
+  List list_ = listCreate();
   if (list_ == NULL) return NULL;
   
-  list_->begin  = node;
+  index = listIndexConvertP(list, index);
+  list_->begin  = listAccess(list, index);
   list_->end    = list->end;
-  list->end     = node->prev;
-  list_->length = list->length - listIndexConvertP(index);
-  list->length  = listIndexConvertP(index);
-  
-  list_->begin->prev = NULL;
-  list_->end->next   = NULL;
+  list_->length = list->length - index;
+  list->end     = listAccess(list, index-1);
+  list->length  = index;
   
   return list_;
 }
@@ -51,12 +47,14 @@ List    listJoin(List a, List b)
   if (a == NULL) return NULL;
   if (b == NULL) return NULL;
   
-  a->end->next = b->begin;
-  b->begin     = a->end;
-  a->end       = b->end;
-  a->length   += b->length;
+  List list = listCreate();
+  if (list == NULL) return NULL;
+  for (int i = 0; i < a->length; i++)
+    listAdd(list, listGet(a, i));
+  for (int i = 0; i < b->length; i++)
+    listAdd(list, listGet(b, i));
   
-  free(b);
+  return list;
 }
 
 List    listSlice(List list, Index begin, Index end)
@@ -65,60 +63,39 @@ List    listSlice(List list, Index begin, Index end)
   if (!listIndexRange(list, begin)) return NULL;
   if (!listIndexRange(list, end)) return NULL;
   
-  List l = (List) malloc(sizeof(LIST));
-  if (l == NULL) return NULL;
+  List list_ = listCreate();
+  if (list_ == NULL) return NULL;
   
-  l->length = listIndexConvertP(end) - listIndexConvertP(begin);
-  if (l->length == 0)
-  {
-    l->begin = NULL;
-    l->end   = NULL;
-    return l;
-  }
+  begin = listIndexConvertP(list, begin);
+  end   = listIndexConvertP(list, end);
   
-  LISTNODE *now, *node_now, *node_last;
-  long      i, length;
-  now       = listAccess(list, begin);
-  node_now  = NULL;
-  node_last = NULL;
-  i         = 0;
-  length    = l->length-1;
+  for (int i = begin; i < end; i++)
+    listAdd(list_, listGet(list, i));
   
-  node_now = listNodeCreate();
-  if (node_now == NULL) goto exception;
-  node_now->item = now->item;
-  node_now->prev = node_last;
-  node_last = node_now;
-  now       = now->next;
-  l->begin  = node_now;
+  return list_;
+}
+
+
+List listCopyDeep(List list)
+{
+  if (list == NULL) return NULL;
   
-  for (; i < length; i++)
-  {
-    node_now = listNodeCreate();
-    if (node_now == NULL) goto exception;
-    node_now->item = now->item;
-    node_now->prev = node_last;
-    
-    node_last = node_now;
-    now       = now->next;
-  }
+  List list_ = listCreate();
+  for (int i = 0; i < list->length; i++)
+    listAdd(list_, listGet(list, i));
   
-  l->end = node_now;
+  return list_;
+}
+
+List listCopyShallow(List list)
+{
+  if (list == NULL) return NULL;
   
-  return l;
+  List list_ = listCreate();
+  if (list_ == NULL) return NULL;
+  list_->length = list->length;
+  list_->begin  = list->begin;
+  list_->end    = list->end;
   
-  
-  exception:
-  LISTNODE* next;
-  now = NULL; // 再利用
-  now = l->begin;
-  for (long index = 0; index < i; index++)
-  {
-    next = now->next;
-    free(now);
-    now = next;
-  }
-  free(l);
-  
-  return NULL;
+  return list_;
 }

@@ -1,19 +1,19 @@
 #include <stdlib.h>
 #include "list_std.h"
 
-Index     listIndexConvert(Index index)
+Index     listIndexConvert(List list, Index index)
 {
-  return -index-1;
+  return (index < 0) ? list->length + index : index - list->length;
 }
 
-Index     listIndexConvertP(Index index)
+Index     listIndexConvertP(List list, Index index)
 {
-  return (index < 0) ? -index-1 : index;
+  return (index < 0) ? list->length + index : index;
 }
 
-Index     listIndexConvertN(Index index)
+Index     listIndexConvertN(List list, Index index)
 {
-  return (index < 0) ? index : -index-1;
+  return (index < 0) ? index : index - list->length;
 }
 
 int       listIndexRange(List list, Index index)
@@ -23,12 +23,12 @@ int       listIndexRange(List list, Index index)
 
 int       listIsBegin(List list, Index index)
 {
-  return listIndexConvertP(index) == 0;
+  return listIndexConvertP(list, index) == 0;
 }
 
 int       listIsEnd(List list, Index index)
 {
-  return listIndexConvertP(index) == list->length-1;
+  return listIndexConvertP(list, index) == list->length-1;
 }
 
 LISTNODE* listNodeCreate(void)

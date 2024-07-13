@@ -100,9 +100,11 @@ err     listCrean(List list)
   for (Index index = 0; index < list->length; index++)
   {
     next = now->next;
-    now->item = NULL;
+    free(now);
     now = next;
   }
+  
+  list->length = 0;
   
   return LIST_ERROR_SUCCESS;
 }
@@ -153,60 +155,11 @@ List listCopy(List list)
 {
   if (list == NULL) return NULL;
   
-  List l = (List) malloc(sizeof(LIST));
-  if (l == NULL) return NULL;
+  List list_ = listCreate();
+  for (int i = 0; i < list->length; i++)
+    listAdd(list_, listGet(list, i));
   
-  l->length = list->length;
-  if (l->length == 0)
-  {
-    l->begin = NULL;
-    l->end   = NULL;
-    return l;
-  }
+  return list_;
   
-  LISTNODE *now, *node_now, *node_last;
-  long      i, length;
-  now       = list->begin;
-  node_now  = NULL;
-  node_last = NULL;
-  i         = 0;
-  length    = l->length-1;
-  
-  node_now = listNodeCreate();
-  if (node_now == NULL) goto exception;
-  node_now->item = now->item;
-  node_now->prev = node_last;
-  node_last = node_now;
-  now       = now->next;
-  l->begin  = node_now;
-  
-  for (; i < length; i++)
-  {
-    node_now = listNodeCreate();
-    if (node_now == NULL) goto exception;
-    node_now->item = now->item;
-    node_now->prev = node_last;
-    
-    node_last = node_now;
-    now       = now->next;
-  }
-  
-  l->end = node_now;
-  
-  return l;
-  
-  
-  exception:
-  LISTNODE* next;
-  now = NULL; // 再利用
-  now = l->begin;
-  for (long index = 0; index < i; index++)
-  {
-    next = now->next;
-    free(now);
-    now = next;
-  }
-  free(l);
-  
-  return NULL;
+  return list_;
 }
