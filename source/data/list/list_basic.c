@@ -119,7 +119,7 @@ err     listFill(List list, Item item)
   for (Index index = 0; index < list->length; index++)
   {
     next = now->next;
-    free(now);
+    now->item = item;
     now = next;
   }
   
@@ -158,8 +158,6 @@ List listCopy(List list)
   List list_ = listCreate();
   for (int i = 0; i < list->length; i++)
     listAdd(list_, listGet(list, i));
-  
-  return list_;
   
   return list_;
 }
