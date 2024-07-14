@@ -1,6 +1,4 @@
 .PHONY: all clean git_push file_set
-.PHONY: clean
-.PHONY: git_push
 
 all: liblist.a
 	echo OK
