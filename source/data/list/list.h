@@ -6,6 +6,7 @@
 
 
 err     listInsert(List list, Index index, Item item);
+Item    listPop(List list, Index index);
 List    listSplit(List list, Index index);
 List    listJoin(List a, List b);
 List    listSlice(List list, Index begin, Index end);

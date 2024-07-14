@@ -1,6 +1,7 @@
-.PHONY: all clean git_push file_set
+.PHONY: all clear clean git_push file_set
 
 ROOTPATH := ..\..\..
+CD       := data\list
 
 all: liblist.a
 	echo OK
@@ -25,7 +26,11 @@ git_push:
 
 file_set: liblist.a
 	copy liblist.a $(ROOTPATH)\lib
-	copy *.h $(ROOTPATH)\include\data\list
+	copy *.h $(ROOTPATH)\include\$(CD)
+
+clear:
+	del *.a
+	del *.o
 
 clean:
 	del *.a

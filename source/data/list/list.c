@@ -24,6 +24,13 @@ err     listInsert(List list, Index index, Item item)
   return LIST_ERROR_SUCCESS;
 }
 
+Item listPop(List list, Index index)
+{
+  Item item = listGet(list, index);
+  listDel(list, index);
+  return item;
+}
+
 List    listSplit(List list, Index index)
 {
   if (list == NULL)                 return NULL;
