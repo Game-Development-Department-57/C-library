@@ -99,3 +99,30 @@ List listCopyShallow(List list)
   
   return list_;
 }
+
+
+Index listFind(List list, Item item)
+{
+  for (long i = 0; i < list->length; i++)
+  {
+    if (listGet(list, i) == item)
+      return (Index)i;
+  }
+  return (Index) -1;
+}
+
+err listReverse(List list)
+{
+  if (list == NULL) return LIST_ERROR_LISTNULL;
+  
+  Item temp;
+  long max_index = list->length / 2;
+  for (long i = 0; i < max_index; i++)
+  {
+    temp = listGet(list, i);
+    listSet(list, i, listGet(list, -i-1));
+    listSet(list, -i-1, temp);
+  }
+  
+  return LIST_ERROR_SUCCESS;
+}
