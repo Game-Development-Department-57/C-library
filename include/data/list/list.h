@@ -9,6 +9,10 @@ err     listInsert(List list, Index index, Item item);
 List    listSplit(List list, Index index);
 List    listJoin(List a, List b);
 List    listSlice(List list, Index begin, Index end);
+List    listCopyDeep(List list);
+List    listCopyShallow(List list);
+Index   listFind(List list, Item item);
+err     listReverse(List list);
 
 
 #endif

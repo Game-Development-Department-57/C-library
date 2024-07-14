@@ -1,5 +1,7 @@
 .PHONY: all clean git_push file_set
 
+ROOTPATH := ..\..\..
+
 all: liblist.a
 	echo OK
 
@@ -16,14 +18,14 @@ liblist.a: list.o list_basic.o list_base.o
 	ar rcs liblist.a list.o list_basic.o list_base.o
 
 git_push:
-	git add .
+	git add $(ROOTPATH)
 	git status
 	git commit -m "update"
 	git push
 
 file_set: liblist.a
-	copy liblist.a C:\Users\GDD\Desktop\program\c\library\lib
-	copy *.h C:\Users\GDD\Desktop\program\c\library\include\data\list
+	copy liblist.a $(ROOTPATH)\lib
+	copy *.h $(ROOTPATH)\include\data\list
 
 clean:
 	del *.a
