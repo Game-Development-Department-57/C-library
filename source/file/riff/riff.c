@@ -1,5 +1,5 @@
 #include <stdlib.h>
-#include "data/stack.h"
+#include "data/list/list.h"
 #include "riffformat.h"
 #include "binary/ftype.h"
 #include "binary/binary.h"
@@ -25,6 +25,10 @@ int riffIsSPChunk(FDWORD id)
   return riffIdCheck(id, "RIFF") || riffIdCheck(id, "LIST");
 }
 
+RIFFCHUNK* riffChunkCreate(void)
+{
+  return (RIFFCHUNK*)malloc(sizeof(RIFFCHUNK));
+}
 
 RIFF* riffCreate(const char* name)
 {
@@ -59,29 +63,42 @@ void riffRead(RIFF* riff)
     free(riff->data);
     return;
   }
-
-  STACK* stack;
-  stack = stackCreate();
+  
+  List chunk_list = listCreate();
+  if (chunk_list == NULL){free(riff->data); return;}
   RIFFCHUNK* chunk  = riff->data;
   FILE*      fp     = riff->fp;
-  RIFFCHUNK* parent = NULL;
-  do
+  while (1)
   {
-    do
+    if (feof(fp)) break;
+    
+    RIFFCHUNK* temp_chunk = riffChunkCreate();
+    FDWORD id = riffGetId(riff);
+    if (riffIsSPChunk(id))
     {
-      fread(&chunk->id,   4, 1, fp);
-      fread(&chunk->size, 4, 1, fp);
-      chunk->seek = ftell(fp);
-      chunk->ptr  = NULL;
-      if (riffIsSPChunk(chunk->id))
-      {
-        fread(&chunk->format, 4, 1, fp);
-        chunk->parent = parent;
-        
-      }else
-      {
-        
-      }
-    }while(riffChunkSize(chunk) != chunk->parent->size);
-  }while(stackLengthGet(stack) != 0);
+      temp_chunk->id = id;
+      fread(&temp_chunk->format, 4, 1, fp);
+      fread(&temp_chunk->size, 4, 1, fp);
+      listAdd(chunk_list, temp_chunk);
+    }else
+    {
+      temp_chunk->id = id;
+      fread(&temp_chunk->size, 4, 1, fp);
+      listAdd(chunk_list, temp_chunk);
+    }
+  }
+  
+  RIFFCHUNK* parent = riff->data;
+  while (1)
+  {
+    if (listLength(list) == 0) break;
+    RIFFCHUNK* temp_chunk = listPop();
+    if (riffIsSPChunk(temp_chunk->id))
+    {
+      
+    }else
+    {
+      
+    }
+  }
 }

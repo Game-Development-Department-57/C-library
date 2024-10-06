@@ -1,12 +1,10 @@
 #ifndef DATA_LIST_LIST_TYPES_H
 #define DATA_LIST_LIST_TYPES_H
 
-#include <stddef.h>
-
 typedef struct tagLIST     LIST;
 typedef struct tagLISTNODE LISTNODE;
 typedef LIST* List;
-typedef size_t  Index;
+typedef long  Index;
 typedef void* Item;
 
 typedef struct tagLIST

@@ -1,0 +1,50 @@
+
+
+基底コンテナインターフェイス
+Create コンテナの作成
+Delete コンテナの破棄
+Add    要素の追加
+Del    要素の削除
+Crean  全ての要素を削除
+Fill   全ての要素に代入
+Get    要素の取得
+Set    要素の代入
+Length 長さの取得
+Copy   コンテナのコピー
+
+cnt   Create void 
+void  Delete cnt  
+err   Add    cnt  item
+err   Del    cnt  index
+err   Crean  cnt  
+err   Fill   cnt  item
+item  Get    cnt  index 
+err   Set    cnt  index item
+index Length cnt  
+cnt   Copy   cnt  
+
+
+拡張コンテナインターフェイス
+Find        要素を検索
+Reverse     要素を逆順に
+CopyDeep    深いコピー
+CopyShallow 浅いコピー
+
+index Find        cnt item
+err   Reverse     cnt 
+cnt   CopyDeep    cnt 
+cnt   CopyShallow cnt 
+
+基底コンテナソートインターフェイス
+BubbleSort    バブルソート
+InsertionSort 挿入ソート
+MergeSort     マージソート
+HeapSort      ヒープソート
+QuickSort     クイックソート
+
+拡張コンテナソートインターフェイス
+CombSort      コムソート
+SelectionSort 選択ソート
+
+基底コンテナ検索インターフェイス
+拡張コンテナ検索インターフェイス
