@@ -1,95 +1,54 @@
 #include <stdlib.h>
-
-#include "data/ftype.h"
-#include "binary/binary.h"
+#include "err.h"
+#include "vector.h"
 
 typedef struct tagVECTOR
 {
   size_t length;
   size_t reserved;
-  FBYTE* vector;
-  FBYTE  buffer[32];
-} VECTOR;
+  char*  vector;
+  char   buffer[32];
+} VECTOR, *Vector;
 
-size_t vectorReservedSize(size_t size)
+Vector vectorCreate(void)
 {
-  return 16 * (size / 16 + 2);
-}
-
-FBYTE* vectorAlloc(size_t size)
-{
-  return (FBYTE*) malloc(VectorReservedSize(size));
-}
-
-VECTOR* vectorInit(size_t size)
-{
-  if (size < 0) return NULL;
-  VECTOR* vector = (VECTOR*) malloc(sizeof(VECTOR));
-  if (vector == NULL) return NULL;
+  Vector vec = (Vector)malloc(sizeof(VECTOR));
+  if (vec == NULL) return NULL;
   
-  vector->length   = size;
-  vector->reserved = vectorReservedSize(size);
-  if (vector->reserved <= 32)
-  {
-    vector->reserved = 32;
-    vector->vector   = vector->buffer;
-  }else
-  {
-    vector->vector = (FBYTE*) malloc(vector->reserved);
-    if (vector->vector == NULL) {free(vector); return NULL;}
-  }
+  vec->length   = 0;
+  vec->reserved = 32;
+  vec->vector   = vec->buffer;
+  vec->buffer   = NULL;
   
-  return vector;
+  return vec;
 }
 
-int vectorResize(VECTOR* vector, size_t size)
+void   vectorDelete(Vector vec)
 {
-  size_t reserved_size = vectorReservedSize(size);
+  if (vec == NULL) return;
   
-  if (reserved_size <= 32)
-  {
-    if (vector->reserved > 32)
-      binaryCpy((void*)vector->buffer, (void*)vector->vector, 32);
-    else
-      ;
-  }else if (vector->reserved <= 32)
-  {
-    FBYTE* buffer = malloc(reserved_size);
-    if (buffer == NULL) {return -1;}
-    vector->vector = buffer;
-    binaryCpy((void*)vector->vector, (void*)vector->buffer, 32);
-  }else if (vector->reserved >= reserved_size)
-  {
-    if ((vector->reserved - reserved_size) >= 32)
-    {
-      FBYTE* buffer = (FBYTE*) realloc(vector->vector, reserved_size);
-      if (buffer == NULL) {return -1;}
-      vector->vector = buffer;
-    }else 
-    {
-      ;
-    }
-  }else if (vector->vector < reserved_size)
-  {
-    FBYTE* buffer = (FBYTE*) realloc(vector->vector, reserved_size);
-    if (buffer == NULL) {return -1;}
-    vector->vector = buffer;
-  }
+  if (vec->vector != vec->buffer)
+    free(vec->vector);
+  free(vec);
   
-  vector->reserved = reserved_size;
-  return 0;
+  return;
 }
 
-size_t vectorGetReserved(VECTOR* vector)
+err    vectorAdd(Vector vec, Item item)
 {
-  return vector->reserved;
+  
 }
 
-size_t vectorGetSize(VECTOR* vector)
-{
-  return vector->length;
-}
-void*  vectorGetBuffer(VECTOR* vector)
-{
-  return (void*) vector->vector;
-}
+err    vectorDel(Vector vec, Index index){}
+
+err    vectorCrean(Vector vec){}
+
+err    vectorFill(Vector vec, Item item){}
+
+Item   vectorGet(Vector vec, Index index){}
+
+err    vectorSet(Vector vec, Index index, Item item){}
+
+Index  vectorLength(Vector vec){}
+
+Vector vectorCopy(Vector vec){}

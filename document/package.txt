@@ -1,0 +1,53 @@
+Package
+
+Data.Container.List.ListP
+Data.Container.List.ListT
+Data.Container.Vector.VectorP
+Data.Container.Vector.VectorT
+
+
+Data
+  Container
+    List
+    Vector
+    Queue
+    Stack
+    Tree
+    Set
+    Dict
+    Table
+    Graph
+  NUMBER
+    INTEGER
+    FLOAT
+      IEEE754
+      EXFLOAT
+  String
+    String
+    Regexp
+    Lexical
+    Parsing
+  Class
+  Error
+    Error
+    Throw
+File
+  Music
+  Image
+  Video
+  Text
+  Execute
+  Other
+  STD
+    RIFF
+Math
+  Types
+    Complex
+    Number
+    Point
+  Operation
+Physics
+  Types
+  Operation
+Debug
+  Allocs
