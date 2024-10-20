@@ -27,7 +27,6 @@ Data
     Regexp
     Lexical
     Parsing
-  Class
   Error
     Error
     Throw
@@ -49,5 +48,9 @@ Math
 Physics
   Types
   Operation
+Memory
+  
+Internet
+  
 Debug
   Allocs
