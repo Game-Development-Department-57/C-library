@@ -1,0 +1,128 @@
+フォルダー パスの一覧
+ボリューム シリアル番号は 4EA4-CA6A です
+C:.
++---debug
+|   \---list
++---dll
++---document
+|   \---doxygen
+|       +---html
+|       |   \---search
+|       \---latex
++---doxywizard
++---include
+|   +---Data
+|   |   +---Container
+|   |   |   +---Dict
+|   |   |   +---Graph
+|   |   |   +---List
+|   |   |   +---Queue
+|   |   |   +---Set
+|   |   |   +---Stack
+|   |   |   +---Table
+|   |   |   +---Tree
+|   |   |   \---Vector
+|   |   +---Error
+|   |   |   +---Error
+|   |   |   \---Throw
+|   |   +---format
+|   |   |   +---FLOAT
+|   |   |   +---IEEE754
+|   |   |   \---INTEGER
+|   |   |       \---INTEGERCONVET
+|   |   +---list
+|   |   +---NUMBER
+|   |   |   +---FLOAT
+|   |   |   |   +---EXFLOAT
+|   |   |   |   \---IEEE754
+|   |   |   \---INTEGER
+|   |   \---String
+|   |       +---Lexical
+|   |       +---Parsing
+|   |       +---Regexp
+|   |       \---String
+|   +---Debug
+|   |   \---Allocs
+|   +---File
+|   |   +---Execute
+|   |   +---Image
+|   |   +---Music
+|   |   +---Other
+|   |   +---STD
+|   |   |   \---RIFF
+|   |   +---Text
+|   |   \---Video
+|   +---Internet
+|   +---Math
+|   |   \---Complex
+|   +---Memory
+|   +---Physics
+|   \---UI
+|       +---CUI
+|       \---GUI
++---lib
++---objdump
++---source
+|   +---Data
+|   |   +---.vscode
+|   |   +---Container
+|   |   |   +---List
+|   |   |   |   \---check
+|   |   |   +---Queue
+|   |   |   +---Stack
+|   |   |   +---Tree
+|   |   |   \---Vector
+|   |   +---endian
+|   |   +---Error
+|   |   |   +---Error
+|   |   |   |   \---.vscode
+|   |   |   \---Throw
+|   |   +---NUMBER
+|   |   |   +---FLOAT
+|   |   |   |   +---EXFLOAT
+|   |   |   |   \---IEEE754
+|   |   |   \---INTEGER
+|   |   \---String
+|   |       +---Lexical
+|   |       +---Parsing
+|   |       +---Regexp
+|   |       \---String
+|   |           +---.vs
+|   |           |   \---string
+|   |           |       +---FileContentIndex
+|   |           |       \---v17
+|   |           |           \---ipch
+|   |           |               \---AutoPCH
+|   |           |                   \---7a8a8a2bb214ce4d
+|   |           \---.vscode
+|   +---Debug
+|   +---File
+|   |   +---.vscode
+|   |   +---Execute
+|   |   +---Image
+|   |   +---Music
+|   |   +---Other
+|   |   +---STD
+|   |   |   \---RIFF
+|   |   |       \---sample_file
+|   |   +---Text
+|   |   \---Video
+|   +---Internet
+|   +---Math
+|   |   \---Complex
+|   +---Memory
+|   |   \---binary
+|   |       \---.vscode
+|   +---Physics
+|   \---UI
+|       +---CUI
+|       |   \---draw
+|       \---GUI
+\---test
+    +---.vscode
+    +---check
+    +---err
+    +---IEEE754
+    \---list
+        +---check
+        \---debug
