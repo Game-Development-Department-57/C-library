@@ -1,6 +1,0 @@
-#ifndef TYPE_TREE_BINARYTREE_TYPE_H
-#define TYPE_TREE_BINARYTREE_TYPE_H
-
-#define TREE_TYPE_ROOT 0
-
-#endif
